@@ -19,6 +19,7 @@ class Reviews extends Component {
   render() {
     return (
       <div>
+        <h1>Reviews:</h1>
         {this.state.reviews.map((review) => {
           return(
             <div className="tile" key={review.id} >

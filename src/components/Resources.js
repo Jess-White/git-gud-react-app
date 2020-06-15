@@ -19,6 +19,7 @@ class Resources extends Component {
   render() {
     return (
       <div>
+        <h1>Resources:</h1>
         {this.state.resources.map((resource) => {
           return(
             <div className="tile" key={resource.id} >
