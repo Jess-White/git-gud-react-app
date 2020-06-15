@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 // import SignUp from './components/SignUp';
@@ -18,8 +18,6 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    function App() {
-    return (
         <div>
             <Header />
             <Footer />
@@ -27,8 +25,5 @@ function App() {
     )
 }
 
-export default App
-  );
-}
 
 export default App;
