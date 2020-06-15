@@ -1,22 +1,22 @@
 // import React, { Component } from 'react';
 import React from 'react';
-// import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-// import SignUp from './components/SignUp';
-// import Dashboard from './components/Dashboard';
-// import Library from './components/Library';
-// import ResourceNew from './components/ResourceNew';
-// import ReviewNew from './components/ReviewNew';
-// import ReviewShow from './components/ReviewShow';
-// import ResourceShow from './components/ResourceShow';
-// import ResourceEdit from './components/ResourceEdit';
-// import ReviewEdit from './components/ReviewEdit';
+import SignUp from './components/SignUp';
+import Dashboard from './components/Dashboard';
+import Library from './components/Library';
+import ResourceNew from './components/ResourceNew';
+import ReviewNew from './components/ReviewNew';
+import ReviewShow from './components/ReviewShow';
+import ResourceShow from './components/ResourceShow';
+import ResourceEdit from './components/ResourceEdit';
+import ReviewEdit from './components/ReviewEdit';
 
 import Header from './components/Header';
+import Login from './components/Login';
 import Users from './components/Users';
 import Reviews from './components/Reviews';
 import Resources from './components/Resources';
@@ -42,15 +42,32 @@ import Footer from './components/Footer';
 
 function App() {
     return (
+        <BrowserRouter>
         <div>
-            <Header />
-            <Users />
-            <Reviews />
-            <Resources />
-            <Footer />
-            <h1>This is the App.js file</h1>
-        </div>
+          <Navigation />
+            <Switch>
+              <Route path="/" component={Dashboard} exact/>
+              <Route path="/Dashboard" component={Dashboard}/>
+              
+              <Route component={Error}/>
+           </Switch>
+        </div> 
+      </BrowserRouter>
     )
 };
+
+// function App() {
+//     return (
+//         <div>
+//             <Header />
+//             <Login />
+//             <Users />
+//             <Reviews />
+//             <Resources />
+//             <Footer />
+//             <h1>This is the App.js file</h1>
+//         </div>
+//     )
+// };
 
 export default App;
