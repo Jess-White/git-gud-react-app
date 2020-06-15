@@ -1,8 +1,18 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css'; 
+// import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+<<<<<<< HEAD
 // import * as serviceWorker from './serviceWorker';
+=======
+import * as serviceWorker from './serviceWorker';
+
+>>>>>>> 4ddae055d91c9b3e78fb9793f28650fa3470ad81
 
 ReactDOM.render(
   <React.StrictMode>

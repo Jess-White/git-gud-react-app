@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 
 function Header() {
   return (
+          <header>
           <div>
             <Jumbotron fluid style={{backgroundColor: "#00008b"}}>
               <Container fluid>
@@ -30,6 +31,7 @@ function Header() {
               </Container>
             </Jumbotron>
           </div>
+          </header>
     )
 }
 
