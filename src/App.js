@@ -2,20 +2,97 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
+import Header from './components/Header';
+import Navigation from './components/Navigation';
+import Footer from './components/Footer';
+import Resources from './components/Resources';
+import Reviews from './components/Reviews';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    };
+
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  checkLoginStatus() {
+    if (localStorage.token && this.state.loggedInStatus === "NOT_LOGGED_IN") {
+      this.setState({
+        loggedInStatus: "LOGGED_IN"
+      }); 
+    } else if (!localStorage.token && this.state.loggedInStatus === "LOGGED_IN") {
+      this.setState({
+        loggedInStatus: "NOT_LOGGED_IN",
+        user: {}
+      })
+    }
+  } 
+
+  componentDidMount() {
+    this.checkLoginStatus();
+  }
+
+  handleLogout() {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    })
+  }
+
+
+  handleLogin(data) {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      user: data.user
+    });
+  }
+
+
+
   render() {
     return (
       <div className="app">
+        <Header />
         <BrowserRouter>
+          <Navigation />
           <Switch>
-            <Route exact path={"/"} component={Home} />
-            <Route exact path={"/dashboard"} component={Dashboard} />
+            <Route 
+            exact path={"/"} 
+            render={props => (
+              <Home {...props} 
+              handleLogin={this.handleLogin} 
+              handleLogout={this.handleLogout}
+              loggedInStatus={this.state.loggedInStatus} 
+              />
+              )}
+            />
+            <Route 
+              exact path={"/dashboard"} 
+
+              render={props => (
+              <Dashboard {...props} 
+              loggedInStatus={this.state.loggedInStatus}
+              />
+              )} 
+            />
+            <Route 
+              exact path={"/resources"} component={Resources} 
+            />
+            <Route 
+              exact path={"/reviews"} component={Reviews} 
+            />
           </Switch>
         </BrowserRouter>
+        <Footer />
       </div>
     )
   }

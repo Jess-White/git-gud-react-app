@@ -43,15 +43,17 @@ export default class Signup extends Component {
         }
         // { withCredentials: true }
       )
+
       .then(response => {
-        console.log("registration res", response);
+        if (response.data.message === 'User created successfully!') {
+        this.props.handleSuccessfulAuth(response.data);
+        }
         // if (response.data.status === "created") {
         //   this.props.handleSuccessfulAuth(response.data);
         // }
       })
       .catch(error => {
         console.log("signup error", error);
-        alert(JSON.stringify(error.response.data.errors))
       });
     event.preventDefault();
   }
