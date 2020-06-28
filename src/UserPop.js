@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class Reviews extends Component {
+class UserPop extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      reviews: []
+      users: []
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/api/reviews')
+    axios.get('http://localhost:3000/api/users')
     .then(response => {
       console.log(response)
-      this.setState({reviews: response.data})
+      this.setState({users: response.data})
     })
     .catch(error => console.log(error))
   }
   render() {
     return (
       <div>
-        <h1>Reviews:</h1>
-        {this.state.reviews.map((review) => {
+        {this.state.users.map((user) => {
           return(
-            <div className="tile" key={review.id} >
-              <h4>{review.title}</h4>
-              <p>{review.body}</p>
+            <div className="tile" key={user.id} >
+              <h4>{user.first_name}</h4>
+              <p>{user.email}</p>
             </div>
           )       
         })}
@@ -33,4 +32,4 @@ class Reviews extends Component {
   }
 }
 
-export default Reviews;
+export default UserPop;

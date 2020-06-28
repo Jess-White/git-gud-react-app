@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 class Resources extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Resources extends Component {
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:3000/api/resources')
+    axios.get('http://localhost:3001/api/resources')
     .then(response => {
       console.log(response)
       this.setState({resources: response.data})
@@ -25,6 +26,7 @@ class Resources extends Component {
             <div className="tile" key={resource.id} >
               <h4>{resource.name}</h4>
               <p>{resource.url}</p>
+              <NavLink style={{color: "green"}} className="navbar-brand" to="/resource">Show Resource</NavLink>
             </div>
           )       
         })}
