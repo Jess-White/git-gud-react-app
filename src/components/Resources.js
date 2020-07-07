@@ -11,24 +11,24 @@ class Resources extends Component {
   }
   componentDidMount() {
     axios.get('http://localhost:3001/api/resources')
-    .then(response => {
-      console.log(response)
-      this.setState({resources: response.data})
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        console.log(response)
+        this.setState({ resources: response.data })
+      })
+      .catch(error => console.log(error))
   }
   render() {
     return (
       <div>
         <h1>Resources:</h1>
         {this.state.resources.map((resource) => {
-          return(
+          return (
             <div className="tile" key={resource.id} >
               <h4>{resource.name}</h4>
               <p>{resource.url}</p>
-              <NavLink style={{color: "green"}} className="navbar-brand" to="/resource">Show Resource</NavLink>
+              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>Show Resource</NavLink>
             </div>
-          )       
+          )
         })}
       </div>
     )
