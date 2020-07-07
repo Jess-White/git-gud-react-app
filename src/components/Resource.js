@@ -4,33 +4,36 @@ import axios from 'axios';
 class Resource extends Component {
   constructor(props) {
     super(props)
+    console.log(props);
     this.state = {
-      resource: {}
+      loading: true,
+      resource: null
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/api/resource/')
-    .then(response => {
-      console.log(response)
-      this.setState({resource: response.data})
-    })
-    .catch(error => console.log(error))
+    console.log("test");
+    axios.get(`http://localhost:3001/api/resources/${this.props.match.params.id}`)
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          resource: response.data,
+          loading: false
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
   render() {
+    if (this.state.loading) {
+      return (
+        <h1>Loading....</h1>
+      )
+    }
     return (
       <div>
-        <h1>{resource.name}</h1>
-        {this.state.resource((resource) => {
-          return(
-            <div className="tile" key={resource.id} >
-              <p>{resource.url}</p>
-              <p>{resource.resource_type}</p>
-              <p>{resource.format}</p>
-              <p>{resource.difficulty}</p>
-              <p>{resource.cost}</p>
-            </div>
-          )       
-        })}
+        <h1>Can you see this?</h1>
+        <h1>{this.state.resource.name}</h1>
       </div>
     )
   }
