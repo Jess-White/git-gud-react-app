@@ -10,7 +10,7 @@ class Resources extends Component {
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/api/resources')
+    axios.get('http://localhost:3001/api/resources', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
       .then(response => {
         console.log(response)
         this.setState({ resources: response.data })
@@ -19,7 +19,7 @@ class Resources extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Resources:</h1>
         {this.state.resources.map((resource) => {
           return (
@@ -28,10 +28,10 @@ class Resources extends Component {
               <p>{resource.url}</p>
               <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>Show Resource</NavLink>
             </div>
-          )
+          );
         })}
       </div>
-    )
+    );
   }
 }
 

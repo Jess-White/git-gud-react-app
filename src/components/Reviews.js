@@ -9,27 +9,27 @@ class Reviews extends Component {
     }
   }
   componentDidMount() {
-    axios.get('http://localhost:3001/api/reviews')
-    .then(response => {
-      console.log(response)
-      this.setState({reviews: response.data})
-    })
-    .catch(error => console.log(error))
+    axios.get('http://localhost:3001/api/reviews', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
+      .then(response => {
+        console.log(response)
+        this.setState({ reviews: response.data })
+      })
+      .catch(error => console.log(error))
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Reviews:</h1>
         {this.state.reviews.map((review) => {
-          return(
+          return (
             <div className="tile" key={review.id} >
               <h4>{review.title}</h4>
               <p>{review.body}</p>
             </div>
-          )       
+          );
         })}
       </div>
-    )
+    );
   }
 }
 
