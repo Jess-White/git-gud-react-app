@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import CurrentUser from './CurrentUser';
+// import Users from './Users';
 // import Resources from './Resources';
 // import Reviews from './Reviews';
 // import Favorites from './Favorites';
@@ -13,60 +15,27 @@ class Dashboard extends Component {
   }
 
   handleLogoutClick() {
+    this.props.history.push('/login');
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
   }
 
   render() {
     return (
       <div className="container">
         <h1>Dashboard</h1>
-        {/* <Resources />
-        <Reviews />
-        <Favorites /> */}
+        <br />
+        <CurrentUser history={this.props.history} />
+        <br />
         <h1>Status: {this.props.loggedInStatus}</h1>
+        <br />
         <button onClick={() => this.handleLogoutClick()}>
           Log Out</button>
+        <br />
+        <br />
       </div>
     );
   }
 }
 
 export default Dashboard;
-
-
-
-
-// import React, { Component } from 'react';
-// // import Resources from './Resources';
-// // import Reviews from './Reviews';
-// import Favorites from './Favorites';
-
-// export default class Dashboard extends Component {
-//   state = {}
-//   render() {
-//     return (
-//       <div>
-//         <h1>Dashboard</h1>
-//         {/* <Resources /> */}
-//         {/* <Reviews /> */}
-//         <Favorites />
-//         <h1>Status: {this.props.loggedInStatus}</h1>
-//         {/* <button onClick={() => this.handleLogoutClick()}>
-//           Log Out</button> */}
-//       </div>
-//     );
-//   }
-// }
-//   // constructor(props) {
-//   //   super(props);
-
-//     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-//     // this.handleLogoutClick = this.handleLogoutClick.bind(this);
-
-
-
-
-//   // handleLogoutClick() {
-//   //   this.props.handleLogout();
-//   //   localStorage.removeItem("token");
-//   // }

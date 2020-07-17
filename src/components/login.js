@@ -47,8 +47,8 @@ class Login extends Component {
         if (response.data.jwt) {
           // this.props.handleSuccessfulAuth(response.data);
           localStorage.setItem("token", response.data.jwt);
+          localStorage.setItem("user_id", response.data.user_id);
           this.props.history.push("/dashboard");
-
         }
       })
       .catch(error => {
