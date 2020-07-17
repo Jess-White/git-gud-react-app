@@ -14,6 +14,7 @@ class Navigation extends Component {
               <NavLink style={{ color: "black" }} className="navbar-brand" to="/login">Login</NavLink>
               <NavLink style={{ color: "black" }} className="navbar-brand" to="/dashboard">Dashboard</NavLink>
               <NavLink style={{ color: "black" }} className="navbar-brand" to="/resources">Resources</NavLink>
+              <NavLink style={{ color: "black" }} className="navbar-brand" to="/resources-new">Resources</NavLink>
               <NavLink style={{ color: "black" }} className="navbar-brand" to="/reviews">Reviews</NavLink>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CurrentUser from './CurrentUser';
 // import Users from './Users';
 // import Resources from './Resources';
@@ -33,9 +34,22 @@ class Dashboard extends Component {
           Log Out</button>
         <br />
         <br />
+
+         <Link to="/resources-new">
+             <button type="button">
+                  Add New Resource
+             </button>
+         </Link>
+
+         <Link to="/reviews-new">
+             <button type="button">
+                  Add New Review
+             </button>
+         </Link>
       </div>
     );
   }
 }
 
 export default Dashboard;
+

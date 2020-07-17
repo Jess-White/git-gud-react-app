@@ -9,7 +9,9 @@ import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Resources from './components/Resources';
+import ResourcesNew from './components/ResourcesNew';
 import Reviews from './components/Reviews';
+import ReviewsNew from './components/ReviewsNew';
 import Resource from './components/Resource';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -87,7 +89,13 @@ export default class App extends Component {
               exact path={"/resources/:id"} component={Resource}
             />
             <Route
+              exact path={"/resources-new"} component={ResourcesNew}
+            />
+            <Route
               exact path={"/reviews"} component={Reviews}
+            />
+            <Route
+              exact path={"/reviews-new"} component={ReviewsNew}
             />
           </Switch>
         </BrowserRouter>
