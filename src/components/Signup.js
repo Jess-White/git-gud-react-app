@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Signup extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
 
@@ -46,11 +46,8 @@ export default class Signup extends Component {
 
       .then(response => {
         if (response.data.message === 'User created successfully!') {
-        this.props.handleSuccessfulAuth(response.data);
+          this.props.history.push("/login");
         }
-        // if (response.data.status === "created") {
-        //   this.props.handleSuccessfulAuth(response.data);
-        // }
       })
       .catch(error => {
         console.log("signup error", error);
@@ -60,7 +57,7 @@ export default class Signup extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -123,3 +120,5 @@ export default class Signup extends Component {
     );
   }
 }
+
+export default Signup;

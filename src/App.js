@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import login from './components/login';
-import Home from './components/Home';
+// import Home from './components/Home';
+import Signup from './components/Signup';
+import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
@@ -50,15 +52,12 @@ export default class App extends Component {
     })
   }
 
-
   handleLogin(data) {
     this.setState({
       loggedInStatus: "LOGGED_IN",
       user: data.user
     });
   }
-
-
 
   render() {
     return (
@@ -68,18 +67,13 @@ export default class App extends Component {
           <Navigation />
           <Switch>
             <Route
-              exact path={"/"}
-              render={props => (
-                <Home {...props}
-                  handleLogin={this.handleLogin}
-                  handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
-                />
-              )}
+              exact path={"/signup"} component={Signup}
+            />
+            <Route
+              exact path={"/login"} component={Login}
             />
             <Route
               exact path={"/dashboard"}
-
               render={props => (
                 <Dashboard {...props}
                   loggedInStatus={this.state.loggedInStatus}

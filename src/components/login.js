@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      
+
       email: "",
       password: "",
       loginErrors: ""
@@ -14,7 +14,13 @@ export default class Login extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
   }
+
+  // handleSuccessfulAuth(data) {
+  //   this.props.handleLogin(data);
+  //   this.props.history.push("/dashboard");
+  // }
 
   handleChange(event) {
     this.setState({
@@ -39,8 +45,10 @@ export default class Login extends Component {
 
       .then(response => {
         if (response.data.jwt) {
-        this.props.handleSuccessfulAuth(response.data);
-        localStorage.setItem("token", response.data.jwt);
+          // this.props.handleSuccessfulAuth(response.data);
+          localStorage.setItem("token", response.data.jwt);
+          localStorage.setItem("user_id", response.data.user_id);
+          this.props.history.push("/dashboard");
         }
       })
       .catch(error => {
@@ -51,7 +59,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <form onSubmit={this.handleSubmit}>
 
           <input
@@ -79,3 +87,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default Login;
