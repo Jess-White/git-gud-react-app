@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 class Reviews extends Component {
@@ -25,6 +26,7 @@ class Reviews extends Component {
             <div className="tile" key={review.id} >
               <h4>{review.title}</h4>
               <p>{review.body}</p>
+              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/reviews/${review.id}`}>Show Review</NavLink>
             </div>
           );
         })}

@@ -10,11 +10,15 @@ class ReviewsNew extends Component {
       body: "",
       rating: "",
       user_id: localStorage.user_id,
-      resource_id: 1
+      resource_id: this.props.resource_id
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(this.state)
   }
 
   handleChange(event) {
@@ -24,7 +28,7 @@ class ReviewsNew extends Component {
   }
 
   handleSubmit(event) {
-    const { 
+    const {
       title, body, rating, user_id, resource_id
     } = this.state;
 
@@ -54,6 +58,7 @@ class ReviewsNew extends Component {
 
   render() {
     return (
+
       <div className="container">
         <form onSubmit={this.handleSubmit}>
           <input
@@ -79,6 +84,15 @@ class ReviewsNew extends Component {
             name="rating"
             placeholder="Rating"
             value={this.state.rating}
+            onChange={this.handleChange}
+            required
+          />
+
+          <input
+            type="text"
+            name="resource_id"
+            placeholder={this.state.resource_id}
+            value={this.state.resource_id}
             onChange={this.handleChange}
             required
           />

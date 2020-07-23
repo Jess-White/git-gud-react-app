@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import Resources from './components/Resources';
 import ResourcesNew from './components/ResourcesNew';
 import Reviews from './components/Reviews';
+import Review from './components/Review';
 import ReviewsNew from './components/ReviewsNew';
 import Resource from './components/Resource';
 import './App.css';
@@ -93,6 +94,9 @@ export default class App extends Component {
             />
             <Route
               exact path={"/reviews"} component={Reviews}
+            />
+            <Route
+              exact path={"/reviews/:id"} component={Review}
             />
             <Route
               exact path={"/reviews-new"} component={ReviewsNew}
