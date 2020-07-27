@@ -24,9 +24,10 @@ class Reviews extends Component {
         {this.state.reviews.map((review) => {
           return (
             <div className="tile" key={review.id} >
-              <h4>{review.title}</h4>
+              {/* <h4>{review.title}</h4> */}
+              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/reviews/${review.id}`}>{review.title}</NavLink>
               <p>{review.body}</p>
-              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/reviews/${review.id}`}>Show Review</NavLink>
+              {/* <NavLink style={{ color: "green" }} className="navbar-brand" to={`/reviews/${review.id}`}>Show Review</NavLink> */}
             </div>
           );
         })}
