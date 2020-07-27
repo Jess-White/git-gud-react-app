@@ -44,6 +44,7 @@ class Resource extends Component {
         <h3>Difficulty: {this.state.resource.difficulty}</h3>
         <h3>Cost: {this.state.resource.cost}</h3>
         <h3>Id: {this.state.resource.id}</h3>
+        <br />
 
         {/* <Link to={{
           pathname: "/reviews-new",
@@ -55,6 +56,7 @@ class Resource extends Component {
             Add New Review
              </button>
         </Link> */}
+
         <ReviewsNew
           resource_id={this.state.resource.id}
           history={this.props.history} />

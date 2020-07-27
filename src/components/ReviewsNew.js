@@ -88,14 +88,14 @@ class ReviewsNew extends Component {
             required
           />
 
-          <input
+          {/* <input
             type="text"
             name="resource_id"
             placeholder={this.state.resource_id}
             value={this.state.resource_id}
             onChange={this.handleChange}
             required
-          />
+          /> */}
 
           <button type="submit">Add New Review</button>
 

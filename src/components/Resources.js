@@ -24,9 +24,10 @@ class Resources extends Component {
         {this.state.resources.map((resource) => {
           return (
             <div className="tile" key={resource.id} >
-              <h4>{resource.name}</h4>
+              {/* <h4>{resource.name}</h4> */}
+              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>{resource.name}</NavLink>
               <p>{resource.url}</p>
-              <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>Show Resource</NavLink>
+              {/* <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>Show Resource</NavLink> */}
             </div>
           );
         })}

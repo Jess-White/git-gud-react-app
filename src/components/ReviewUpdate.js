@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-// import ReviewsNew from './ReviewsNew';
-// import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class Review extends Component {
+class ReviewUpdate extends Component {
   constructor(props) {
-    super(props)
-    console.log(props);
+    super(props);
     this.state = {
-      title: '',
-      body: '',
-      rating: '',
-      resource_id: '',
-      id: '',
-      loading: true,
+      title: this.props.title,
+      body: this.props.body,
+      rating: this.props.rating,
+      review_id: this.props.id,
+      isHidden: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,28 +17,20 @@ class Review extends Component {
     // this.handleUserDelete = this.handleUserDelete.bind(this);
   }
 
-  componentDidMount() {
-    console.log(this.state);
-    axios.get(
-      `http://localhost:3001/api/reviews/${this.props.match.params.id}`,
-      { headers: { "Authorization": `Bearer ${localStorage.token}` } }
-    )
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          title: response.data.title,
-          body: response.data.body,
-          rating: response.data.rating,
-          user_id: response.data.user_id,
-          resource_id: response.data.resource_id,
-          id: response.data.id,
-          loading: false
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/reviews/' + localStorage.user_id,
+  //     { headers: { "Authorization": `Bearer ${localStorage.token}` } })
+  //     .then(response => {
+  //       this.setState({
+  //         first_name: response.data.first_name,
+  //         last_name: response.data.last_name,
+  //         email: response.data.email
+  //       });
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     })
+  // }
 
   toggleHidden() {
     this.setState({
@@ -61,7 +49,7 @@ class Review extends Component {
     const { title, body, rating } = this.state;
     axios
       .patch(
-        'http://localhost:3001/api/reviews/' + this.state.id,
+        'http://localhost:3001/api/reviews/' + this.state.review_id,
         {
           title: title,
           body: body,
@@ -96,20 +84,8 @@ class Review extends Component {
   // }
 
   render() {
-    if (this.state.loading) {
-      return (
-        <h1>Loading....</h1>
-      )
-    }
     return (
-      <div className="container">
-        <h3>Title: {this.state.title}</h3>
-        <h3>Body: {this.state.body}</h3>
-        <h3>Rating: {this.state.rating}</h3>
-        <h3>User: {this.state.user_id}</h3>
-        <h3>Resource ID: {this.state.resource_id}</h3>
-        <h3>Review ID: {this.state.id}</h3>
-
+      <div style={{ marginTop: 10 }}>
         <div>
           <button onClick={this.toggleHidden.bind(this)}>
             Update Review
@@ -148,14 +124,14 @@ class Review extends Component {
                   onChange={this.handleChange}
                 />
                 <br />
-                {/* <label>Review ID</label>
+                <label>Review ID</label>
                 <input
                   type="text"
-                  value={this.state.id}
-                  name="id"
-                  placeholder={this.state.id}
+                  value={this.state.review_id}
+                  name="review_id"
+                  placeholder={this.state.review_id}
                   onChange={this.handleChange}
-                /> */}
+                />
                 <div>
                   <button type="submit">Submit</button>
                 </div>
@@ -172,23 +148,9 @@ class Review extends Component {
               null
             )}
         </div>
-
-        {/* <Link to={{
-          pathname: "/reviews-new",
-          state: {
-            pass: "some data"
-          }
-        }}>
-          <button type="button">
-            Add New Review
-             </button>
-        </Link> */}
-        {/* <ReviewsNew
-          resource_id={this.state.resource.id}
-          history={this.props.history} /> */}
       </div>
     )
   }
 }
 
-export default Review;
+export default ReviewUpdate;

@@ -35,17 +35,17 @@ class Dashboard extends Component {
         <br />
         <br />
 
-         <Link to="/resources-new">
-             <button type="button">
-                  Add New Resource
+        <Link to="/resources-new">
+          <button type="button">
+            Add New Resource
              </button>
-         </Link>
+        </Link>
 
-         <Link to="/reviews-new">
+        {/* <Link to="/reviews-new">
              <button type="button">
                   Add New Review
              </button>
-         </Link>
+         </Link> */}
       </div>
     );
   }
