@@ -14,10 +14,12 @@ class Review extends Component {
       resource_id: '',
       id: '',
       loading: true,
+      canEdit: false
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showEditAbility = this.showEditAbility.bind(this);
     // this.handleUserDelete = this.handleUserDelete.bind(this);
   }
 
@@ -39,6 +41,9 @@ class Review extends Component {
           loading: false
         });
       })
+      .then(response => {
+        this.showEditAbility()
+      })
       .catch(error => {
         console.log(error);
       })
@@ -46,8 +51,16 @@ class Review extends Component {
 
   toggleHidden() {
     this.setState({
-      isHidden: !this.state.isHidden
+        isHidden: !this.state.isHidden
     })
+  }
+
+  showEditAbility() {
+    if (this.state.user_id == localStorage.user_id) {
+      this.setState({
+        canEdit: !this.state.canEdit
+      })
+    }
   }
 
   handleChange(event) {
@@ -69,31 +82,31 @@ class Review extends Component {
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
-      .then(response => console.log(response))
+      .then(response => {
+        this.toggleHidden();
+      })
       .catch(error => {
         console.log('review update error', error);
       });
     event.preventDefault();
   }
 
-  // handleUserDelete() {
-  //   axios
-  //     .delete(
-  //       'http://localhost:3001/api/users/' + localStorage.user_id,
-  //       { headers: { "Authorization": `Bearer ${localStorage.token}` } }
-  //     )
-  //     .then(response => {
-  //       console.log(response);
-  //       if (response.data.message) {
-  //         this.props.history.push('/signup');
-  //         localStorage.removeItem('token');
-  //         localStorage.removeItem('user_id');
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
+  handleReviewDelete() {
+    axios
+      .delete(
+        'http://localhost:3001/api/reviews/' + this.state.id,
+        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data.message) {
+          this.props.history.push('/reviews');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   render() {
     if (this.state.loading) {
@@ -110,6 +123,7 @@ class Review extends Component {
         <h3>Resource ID: {this.state.resource_id}</h3>
         <h3>Review ID: {this.state.id}</h3>
 
+        {this.state.canEdit ? (
         <div>
           <button onClick={this.toggleHidden.bind(this)}>
             Update Review
@@ -148,23 +162,15 @@ class Review extends Component {
                   onChange={this.handleChange}
                 />
                 <br />
-                {/* <label>Review ID</label>
-                <input
-                  type="text"
-                  value={this.state.id}
-                  name="id"
-                  placeholder={this.state.id}
-                  onChange={this.handleChange}
-                /> */}
                 <div>
                   <button type="submit">Submit</button>
                 </div>
               </form>
               <br />
               <button
-                onClick={() => this.handleUserDelete()}
+                onClick={() => this.handleReviewDelete()}
                 className="btn btn-danger">
-                Delete Account
+                Delete Review
               </button>
 
             </div>
@@ -172,20 +178,9 @@ class Review extends Component {
               null
             )}
         </div>
-
-        {/* <Link to={{
-          pathname: "/reviews-new",
-          state: {
-            pass: "some data"
-          }
-        }}>
-          <button type="button">
-            Add New Review
-             </button>
-        </Link> */}
-        {/* <ReviewsNew
-          resource_id={this.state.resource.id}
-          history={this.props.history} /> */}
+        ) : (
+          null
+        )}
       </div>
     )
   }
