@@ -55,7 +55,7 @@ class Resource extends Component {
 
   toggleHidden() {
     this.setState({
-        isHidden: !this.state.isHidden
+      isHidden: !this.state.isHidden
     })
   }
 
@@ -87,13 +87,13 @@ class Resource extends Component {
           format: format,
           difficulty: difficulty,
           cost: cost,
-          reviews: reviews
+          // reviews: reviews
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
       .then(response => {
         this.toggleHidden();
-        })
+      })
       .catch(error => {
         console.log('resource update error', error);
       });
@@ -116,7 +116,21 @@ class Resource extends Component {
         <h3>Id: {this.state.id}</h3>
         <br />
 
-          {this.state.canEdit ? (
+        <div className="container">
+          <h1>Reviews:</h1>
+          {this.state.reviews.map((review) => {
+            return (
+              <div className="tile" key={review.id} >
+                <h3>{review.title}</h3>
+                <h3>{review.body}</h3>
+                <h3>{review.title}</h3>
+                <br />
+              </div>
+            );
+          })}
+        </div>
+
+        {this.state.canEdit ? (
           <div>
             <button onClick={this.toggleHidden.bind(this)}>
               Update Review
@@ -200,7 +214,7 @@ class Resource extends Component {
                 null
               )}
           </div>
-          ) : (
+        ) : (
             null
           )}
         <div>
