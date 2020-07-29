@@ -23,9 +23,7 @@ class Favorites extends Component {
         {this.state.favorites.map((favorite) => {
           return (
             <div className="tile" key={favorite.id} >
-              <h4>{favorite.name}</h4>
-              <p>{favorite.url}</p>
-
+              <h4>{favorite.resource.name}</h4>
             </div>
           )
         })}
