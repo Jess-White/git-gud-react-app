@@ -13,6 +13,7 @@ class Review extends Component {
       rating: '',
       resource_id: '',
       id: '',
+      user_info: '',
       loading: true,
       canEdit: false
     }
@@ -38,6 +39,7 @@ class Review extends Component {
           user_id: response.data.user_id,
           resource_id: response.data.resource_id,
           id: response.data.id,
+          user_info: response.data.user,
           loading: false
         });
       })
@@ -51,7 +53,7 @@ class Review extends Component {
 
   toggleHidden() {
     this.setState({
-        isHidden: !this.state.isHidden
+      isHidden: !this.state.isHidden
     })
   }
 
@@ -122,65 +124,66 @@ class Review extends Component {
         <h3>User: {this.state.user_id}</h3>
         <h3>Resource ID: {this.state.resource_id}</h3>
         <h3>Review ID: {this.state.id}</h3>
+        <h3>User Info: {this.state.user_info}</h3>
 
         {this.state.canEdit ? (
-        <div>
-          <button onClick={this.toggleHidden.bind(this)}>
-            Update Review
+          <div>
+            <button onClick={this.toggleHidden.bind(this)}>
+              Update Review
           </button>
-          <br />
-          <br />
-          {/* {!this.state.isHidden && <UserUpdate />} */}
-          {this.state.isHidden ? (
-            <div>
-              <h1>Review Update</h1>
-              <form onSubmit={this.handleSubmit}>
-                <label>Title</label>
-                <input
-                  type="text"
-                  value={this.state.title}
-                  name="title"
-                  placeholder={this.state.title}
-                  onChange={this.handleChange}
-                />
+            <br />
+            <br />
+            {/* {!this.state.isHidden && <UserUpdate />} */}
+            {this.state.isHidden ? (
+              <div>
+                <h1>Review Update</h1>
+                <form onSubmit={this.handleSubmit}>
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    value={this.state.title}
+                    name="title"
+                    placeholder={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <label>Body</label>
+                  <input
+                    type="text"
+                    value={this.state.body}
+                    name="body"
+                    placeholder={this.state.body}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <label>Rating</label>
+                  <input
+                    type="text"
+                    value={this.state.rating}
+                    name="rating"
+                    placeholder={this.state.rating}
+                    onChange={this.handleChange}
+                  />
+                  <br />
+                  <div>
+                    <button type="submit">Submit</button>
+                  </div>
+                </form>
                 <br />
-                <label>Body</label>
-                <input
-                  type="text"
-                  value={this.state.body}
-                  name="body"
-                  placeholder={this.state.body}
-                  onChange={this.handleChange}
-                />
-                <br />
-                <label>Rating</label>
-                <input
-                  type="text"
-                  value={this.state.rating}
-                  name="rating"
-                  placeholder={this.state.rating}
-                  onChange={this.handleChange}
-                />
-                <br />
-                <div>
-                  <button type="submit">Submit</button>
-                </div>
-              </form>
-              <br />
-              <button
-                onClick={() => this.handleReviewDelete()}
-                className="btn btn-danger">
-                Delete Review
+                <button
+                  onClick={() => this.handleReviewDelete()}
+                  className="btn btn-danger">
+                  Delete Review
               </button>
 
-            </div>
-          ) : (
-              null
-            )}
-        </div>
+              </div>
+            ) : (
+                null
+              )}
+          </div>
         ) : (
-          null
-        )}
+            null
+          )}
       </div>
     )
   }

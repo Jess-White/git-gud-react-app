@@ -55,7 +55,7 @@ class Resource extends Component {
 
   toggleHidden() {
     this.setState({
-        isHidden: !this.state.isHidden
+      isHidden: !this.state.isHidden
     })
   }
 
@@ -76,7 +76,7 @@ class Resource extends Component {
           resource_id: this.state.id
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
-        )
+      )
       .then(response => {
         console.log(response);
       })
@@ -89,7 +89,7 @@ class Resource extends Component {
     axios
       .delete(
         'http://localhost:3001/api/favorites/' + "user_id=" + localStorage.user_id + "&resource_id=" + this.state.id,
-          { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
       .then(response => {
         console.log(response);
@@ -143,7 +143,7 @@ class Resource extends Component {
       )
       .then(response => {
         this.toggleHidden();
-        })
+      })
       .catch(error => {
         console.log('resource update error', error);
       });
@@ -168,7 +168,21 @@ class Resource extends Component {
         <button onClick={this.handleFavoriteDelete.bind(this)}>Remove from Favorites</button>
         <br />
 
-          {this.state.canEdit ? (
+        <div className="container">
+          <h1>Reviews:</h1>
+          {this.state.reviews.map((review) => {
+            return (
+              <div className="tile" key={review.id} >
+                <h3>{review.title}</h3>
+                <h3>{review.body}</h3>
+                <h3>{review.title}</h3>
+                <br />
+              </div>
+            );
+          })}
+        </div>
+
+        {this.state.canEdit ? (
           <div>
             <button onClick={this.toggleHidden.bind(this)}>
               Update Review
@@ -252,7 +266,7 @@ class Resource extends Component {
                 null
               )}
           </div>
-          ) : (
+        ) : (
             null
           )}
         <div>
