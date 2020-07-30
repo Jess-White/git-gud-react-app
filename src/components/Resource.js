@@ -60,12 +60,63 @@ class Resource extends Component {
   }
 
   showEditAbility() {
-    console.log("waffle");
     if (this.state.user_id == localStorage.user_id) {
       this.setState({
         canEdit: !this.state.canEdit
       })
     }
+  }
+
+  createFavorite() {
+    axios
+      .post(
+        'http://localhost:3001/api/favorites',
+        {
+          user_id: localStorage.user_id,
+          resource_id: this.state.id
+        },
+        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+      )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log('favorite create error', error);
+      });
+  }
+
+  handleFavoriteDelete() {
+    axios
+      .delete(
+        'http://localhost:3001/api/favorites/' + "user_id=" + localStorage.user_id + "&resource_id=" + this.state.id,
+        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data.message) {
+          this.props.history.push('/resources/' + this.state.id);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  handleReviewDelete() {
+    axios
+      .delete(
+        'http://localhost:3001/api/reviews/' + this.state.id,
+        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data.message) {
+          this.props.history.push('/reviews');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   handleChange(event) {
@@ -86,8 +137,7 @@ class Resource extends Component {
           resource_type: resource_type,
           format: format,
           difficulty: difficulty,
-          cost: cost,
-          // reviews: reviews
+          cost: cost
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
@@ -114,6 +164,8 @@ class Resource extends Component {
         <h3>Difficulty: {this.state.difficulty}</h3>
         <h3>Cost: {this.state.cost}</h3>
         <h3>Id: {this.state.id}</h3>
+        <button onClick={this.createFavorite.bind(this)}>Add to Favorites</button>
+        <button onClick={this.handleFavoriteDelete.bind(this)}>Remove from Favorites</button>
         <br />
 
         <div className="container">

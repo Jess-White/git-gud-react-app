@@ -4,7 +4,7 @@ import CurrentUser from './CurrentUser';
 // import Users from './Users';
 // import Resources from './Resources';
 // import Reviews from './Reviews';
-// import Favorites from './Favorites';
+import Favorites from './Favorites';
 // import Login from './Login';
 
 class Dashboard extends Component {
@@ -40,12 +40,7 @@ class Dashboard extends Component {
             Add New Resource
              </button>
         </Link>
-
-        {/* <Link to="/reviews-new">
-             <button type="button">
-                  Add New Review
-             </button>
-         </Link> */}
+      <Favorites />
       </div>
     );
   }
