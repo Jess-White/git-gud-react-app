@@ -13,7 +13,7 @@ class ResourcesNew extends Component {
       difficulty: "",
       cost: "",
       user_id: localStorage.user_id,
-      tag_list: [],
+      tag_list: "",
       tags: []
     }
 
@@ -34,6 +34,15 @@ class ResourcesNew extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  handleSelect = (event) => {
+    let tag_list = this.state.tag_list
+    tag_list += ` ${event.target.value},`
+    this.setState({
+      tag_list: tag_list
+    })
+
   }
 
   handleSubmit(event) {
@@ -144,12 +153,12 @@ class ResourcesNew extends Component {
           <br />
 
           <label>Tags:</label>
-          <select name="tag_list">
+          <select name="tag_list" onChange={this.handleSelect}>
             {this.state.tags.map((tag) => {
               return (
                 <option
                   key={tag.id}
-                  value={this.state.tag_list}
+                  value={tag.name}
                   onChange={this.handleChange}
                 >
                   {tag.name}

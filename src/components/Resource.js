@@ -80,8 +80,10 @@ class Resource extends Component {
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
       .then(response => {
+        this.setState({
+          favorite: true
+        })
         console.log(response);
-        this.props.push('/resources/' + this.state.id);
       })
       .catch(error => {
         console.log('favorite create error', error);
@@ -95,10 +97,10 @@ class Resource extends Component {
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
       .then(response => {
+        this.setState({
+          favorite: false
+        })
         console.log(response);
-        if (response.data.message) {
-          this.props.history.push('/resources/' + this.state.id);
-        }
       })
       .catch(error => {
         console.log(error);
