@@ -27,7 +27,13 @@ class Resources extends Component {
               {/* <h4>{resource.name}</h4> */}
               <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>{resource.name}</NavLink>
               <p>{resource.url}</p>
-              {/* <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>Show Resource</NavLink> */}
+              <h4>Tags:</h4>
+              <div >{resource.tags.map((tag, index) => {
+                return (
+                  <p key={index}>{tag}</p>
+                )
+              })
+              }</div>
             </div>
           );
         })}

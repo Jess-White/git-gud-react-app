@@ -12,11 +12,22 @@ class ResourcesNew extends Component {
       format: "",
       difficulty: "",
       cost: "",
-      user_id: localStorage.user_id
+      user_id: localStorage.user_id,
+      tag_list: "",
+      tags: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3001/api/tags', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
+      .then(response => {
+        console.log(response)
+        this.setState({ tags: response.data })
+      })
+      .catch(error => console.log(error))
   }
 
   handleChange(event) {
@@ -25,9 +36,18 @@ class ResourcesNew extends Component {
     });
   }
 
+  handleSelect = (event) => {
+    let tag_list = this.state.tag_list
+    tag_list += ` ${event.target.value},`
+    this.setState({
+      tag_list: tag_list
+    })
+
+  }
+
   handleSubmit(event) {
-    const { 
-      name, url, resource_type, format, difficulty, cost, user_id
+    const {
+      name, url, resource_type, format, difficulty, cost, user_id, tag_list
     } = this.state;
 
     axios
@@ -40,7 +60,8 @@ class ResourcesNew extends Component {
           format: format,
           difficulty: difficulty,
           cost: cost,
-          user_id: user_id
+          user_id: user_id,
+          tag_list: tag_list
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
@@ -63,11 +84,12 @@ class ResourcesNew extends Component {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="Resource Name"
             value={this.state.name}
             onChange={this.handleChange}
             required
           />
+          <br />
 
           <input
             type="text"
@@ -77,6 +99,7 @@ class ResourcesNew extends Component {
             onChange={this.handleChange}
             required
           />
+          <br />
 
           <input
             type="text"
@@ -86,6 +109,7 @@ class ResourcesNew extends Component {
             onChange={this.handleChange}
             required
           />
+          <br />
 
           <input
             type="text"
@@ -95,6 +119,7 @@ class ResourcesNew extends Component {
             onChange={this.handleChange}
             required
           />
+          <br />
 
           <input
             type="text"
@@ -104,6 +129,7 @@ class ResourcesNew extends Component {
             onChange={this.handleChange}
             required
           />
+          <br />
 
           <input
             type="text"
@@ -113,6 +139,33 @@ class ResourcesNew extends Component {
             onChange={this.handleChange}
             required
           />
+          <br />
+
+          <label>Tags:</label>
+          <input
+            type="text"
+            name="tag_list"
+            placeholder="Javascript, CSS, ...."
+            value={this.state.tag_list}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+
+          <label>Tags:</label>
+          <select name="tag_list" onChange={this.handleSelect}>
+            {this.state.tags.map((tag) => {
+              return (
+                <option
+                  key={tag.id}
+                  value={tag.name}
+                  onChange={this.handleChange}
+                >
+                  {tag.name}
+                </option>
+              )
+            })}
+          </select>
 
           <button type="submit">Add New Resource</button>
 
