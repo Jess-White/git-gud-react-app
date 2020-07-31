@@ -18,6 +18,7 @@ class Resource extends Component {
       difficulty: "",
       cost: "",
       currentResourceId: "",
+      favorite: "",
       canEdit: false,
       reviews: []
     }
@@ -42,6 +43,7 @@ class Resource extends Component {
           difficulty: response.data.difficulty,
           cost: response.data.cost,
           reviews: response.data.reviews,
+          favorite: response.data.favorite,
           loading: false
         });
       })
@@ -79,6 +81,7 @@ class Resource extends Component {
       )
       .then(response => {
         console.log(response);
+        this.props.push('/resources/' + this.state.id);
       })
       .catch(error => {
         console.log('favorite create error', error);
@@ -164,8 +167,12 @@ class Resource extends Component {
         <h3>Difficulty: {this.state.difficulty}</h3>
         <h3>Cost: {this.state.cost}</h3>
         <h3>Id: {this.state.id}</h3>
-        <button onClick={this.createFavorite.bind(this)}>Add to Favorites</button>
-        <button onClick={this.handleFavoriteDelete.bind(this)}>Remove from Favorites</button>
+
+        {this.state.favorite === false ?
+          <button onClick={this.createFavorite.bind(this)}>Add to Favorites</button>
+          : <button onClick={this.handleFavoriteDelete.bind(this)}>Remove from Favorites</button>
+        }
+
         <br />
 
         <div className="container">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Favorites extends Component {
@@ -8,6 +9,7 @@ class Favorites extends Component {
       favorites: []
     }
   }
+
   componentDidMount() {
     axios.get('http://localhost:3001/api/favorites', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
       .then(response => {
@@ -16,6 +18,9 @@ class Favorites extends Component {
       })
       .catch(error => console.log(error))
   }
+
+  // <Resource favorites={this.state.favorites} />
+
   render() {
     return (
       <div>
@@ -23,7 +28,10 @@ class Favorites extends Component {
         {this.state.favorites.map((favorite) => {
           return (
             <div className="tile" key={favorite.id} >
-              <h4>{favorite.resource.name}</h4>
+
+              <Link to={"/resources/" + favorite.resource.id}>
+                <h4>{favorite.resource.name}</h4>
+              </Link>
             </div>
           )
         })}

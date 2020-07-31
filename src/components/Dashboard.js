@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CurrentUser from './CurrentUser';
+// import axios from 'axios';
+// import Resource from './Resource';
 // import Users from './Users';
 // import Resources from './Resources';
 // import Reviews from './Reviews';
@@ -10,10 +12,22 @@ import Favorites from './Favorites';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   favorites: []
+    // }
 
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
+
+  // componentDidMount() {
+  //   axios.get('http://localhost:3001/api/favorites', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
+  //     .then(response => {
+  //       console.log(response)
+  //       this.setState({ favorites: response.data })
+  //     })
+  //     .catch(error => console.log(error))
+  // }
 
   handleLogoutClick() {
     this.props.history.push('/login');
@@ -22,6 +36,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    // let favorites = this.state.favorites;
     return (
       <div className="container">
         <h1>Dashboard</h1>
@@ -40,7 +55,13 @@ class Dashboard extends Component {
             Add New Resource
              </button>
         </Link>
-      <Favorites />
+
+        <Favorites />
+        {/* <div>
+          {this.state.favorites.map(favorite =>
+            <Resource key={favorite.resource.id} />
+          )}
+        </div> */}
       </div>
     );
   }
