@@ -20,7 +20,8 @@ class Resource extends Component {
       currentResourceId: "",
       favorite: "",
       canEdit: false,
-      reviews: []
+      reviews: [],
+      user: []
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +45,8 @@ class Resource extends Component {
           cost: response.data.cost,
           reviews: response.data.reviews,
           favorite: response.data.favorite,
-          loading: false
+          loading: false,
+          user: response.data.user
         });
       })
       .then(response => {
@@ -184,7 +186,7 @@ class Resource extends Component {
               <div className="tile" key={review.id} >
                 <h3>{review.title}</h3>
                 <h3>{review.body}</h3>
-                <h3>{review.title}</h3>
+                <h3>{}</h3>
                 <br />
               </div>
             );
