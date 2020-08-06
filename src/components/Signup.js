@@ -12,7 +12,8 @@ class Signup extends Component {
       user_name: "",
       password: "",
       password_confirmation: "",
-      signUpErrors: ""
+      signUpErrors: "",
+      errors: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,7 +51,10 @@ class Signup extends Component {
         }
       })
       .catch(error => {
-        console.log("signup error", error);
+        this.setState({
+          errors: error.response.data.errors
+        })
+        console.log(this.state.errors);
       });
     event.preventDefault();
   }
@@ -85,6 +89,7 @@ class Signup extends Component {
             onChange={this.handleChange}
             required
           />
+          {this.state.errors}
 
           <input
             type="text"

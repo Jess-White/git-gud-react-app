@@ -56,7 +56,7 @@ class CurrentUser extends Component {
         },
         { headers: { "Authorization": `Bearer ${localStorage.token}` } }
       )
-      .then(response => console.log(response))
+      .then(response => this.toggleHidden())
       .catch(error => {
         console.log('user update error', error);
       });
