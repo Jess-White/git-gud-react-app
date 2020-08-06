@@ -109,23 +109,6 @@ class Resource extends Component {
       });
   }
 
-  handleReviewDelete() {
-    axios
-      .delete(
-        'http://localhost:3001/api/reviews/' + this.state.id,
-        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
-      )
-      .then(response => {
-        console.log(response);
-        if (response.data.message) {
-          this.props.history.push('/reviews');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   handleChange(event) {
     const { name, value } = event.target
     this.setState({
@@ -196,13 +179,13 @@ class Resource extends Component {
         {this.state.canEdit ? (
           <div>
             <button onClick={this.toggleHidden.bind(this)}>
-              Update Review
+              Update Resource
             </button>
             <br />
             <br />
             {this.state.isHidden ? (
               <div>
-                <h1>Review Update</h1>
+                <h1>Resource Update</h1>
                 <form onSubmit={this.handleSubmit}>
                   <label>URL</label>
                   <input
@@ -266,11 +249,6 @@ class Resource extends Component {
                   </div>
                 </form>
                 <br />
-                <button
-                  onClick={() => this.handleReviewDelete()}
-                  className="btn btn-danger">
-                  Delete Review
-                </button>
 
               </div>
             ) : (

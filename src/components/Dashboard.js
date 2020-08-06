@@ -30,9 +30,9 @@ class Dashboard extends Component {
   // }
 
   handleLogoutClick() {
-    this.props.history.push('/login');
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
+    this.props.history.push('/login');
   }
 
   render() {
