@@ -67,7 +67,7 @@ export default class App extends Component {
       <div className="app">
         <Header />
         <BrowserRouter>
-          <Navigation />
+          <Navigation loggedInStatus={this.state.loggedInStatus} />
           <Switch>
             <Route
               exact path={"/signup"} component={Signup}
