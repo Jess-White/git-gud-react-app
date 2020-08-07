@@ -63,16 +63,15 @@ class Resources extends Component {
         {filteredResources.map((resource) => {
           return (
             <div className="tile" key={resource.id} >
-              {/* <h4>{resource.name}</h4> */}
               <NavLink style={{ color: "green" }} className="navbar-brand" to={`/resources/${resource.id}`}>{resource.name}</NavLink>
               <p>{resource.url}</p>
-              <h4>Tags:</h4>
-              <div >{resource.tags.map((tag, index) => {
+              <div >Tags: {resource.tags.map((tag, index) => {
                 return (
-                  <p key={index}>{tag}</p>
+                  <span key={index}>{tag}, </span>
                 )
               })
               }</div>
+              <br />
             </div>
           );
         })}

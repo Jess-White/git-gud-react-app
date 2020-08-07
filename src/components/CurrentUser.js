@@ -13,7 +13,7 @@ class CurrentUser extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUserDelete = this.handleUserDelete.bind(this);
+    // this.handleUserDelete = this.handleUserDelete.bind(this);
   }
 
   componentDidMount() {
@@ -63,24 +63,24 @@ class CurrentUser extends Component {
     event.preventDefault();
   }
 
-  handleUserDelete() {
-    axios
-      .delete(
-        'http://localhost:3001/api/users/' + localStorage.user_id,
-        { headers: { "Authorization": `Bearer ${localStorage.token}` } }
-      )
-      .then(response => {
-        console.log(response);
-        if (response.data.message) {
-          this.props.history.push('/signup');
-          localStorage.removeItem('token');
-          localStorage.removeItem('user_id');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // handleUserDelete() {
+  //   axios
+  //     .delete(
+  //       'http://localhost:3001/api/users/' + localStorage.user_id,
+  //       { headers: { "Authorization": `Bearer ${localStorage.token}` } }
+  //     )
+  //     .then(response => {
+  //       console.log(response);
+  //       if (response.data.message) {
+  //         this.props.history.push('/signup');
+  //         localStorage.removeItem('token');
+  //         localStorage.removeItem('user_id');
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
   render() {
     return (
@@ -131,11 +131,11 @@ class CurrentUser extends Component {
                 </div>
               </form>
               <br />
-              <button
+              {/* <button
                 onClick={() => this.handleUserDelete()}
                 className="btn btn-danger">
                 Delete Account
-              </button>
+              </button> */}
 
             </div>
           ) : (

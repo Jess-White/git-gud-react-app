@@ -151,7 +151,7 @@ class Resource extends Component {
         <h3>Format: {this.state.format}</h3>
         <h3>Difficulty: {this.state.difficulty}</h3>
         <h3>Cost: {this.state.cost}</h3>
-        <h3>Id: {this.state.id}</h3>
+        <br />
 
         {this.state.favorite === false ?
           <button onClick={this.createFavorite.bind(this)}>Add to Favorites</button>
@@ -159,24 +159,25 @@ class Resource extends Component {
         }
 
         <br />
-
+        <br />
         <div className="container">
           <h1>Reviews:</h1>
           {this.state.reviews.map((review) => {
             return (
               <div className="tile" key={review.id} >
-                <h3>{review.title}</h3>
                 <NavLink
                   style={{ color: "green" }}
                   className="navbar-brand"
                   to={`/reviews/${review.id}`}>{review.title}</NavLink>
                 <h3>{review.body}</h3>
                 <h3>{review.title}</h3>
+                <h3>Author: {review.user.user_name}</h3>
                 <br />
               </div>
             );
           })}
         </div>
+        <br />
 
         {this.state.canEdit ? (
           <div>
@@ -207,44 +208,65 @@ class Resource extends Component {
                     onChange={this.handleChange}
                   />
                   <br />
-                  <label>Resource Type</label>
-                  <input
-                    type="text"
-                    value={this.state.resource_type}
-                    name="resource_type"
-                    placeholder={this.state.resource_type}
-                    onChange={this.handleChange}
-                  />
+
+                  <label>
+                    Resource Type:
+                  <select
+                      name="resource_type"
+                      value={this.state.resource_type}
+                      onChange={this.handleChange}
+                    >
+                      <option value="cheat_sheet">Cheat Sheet</option>
+                      <option value="tutorial">Tutorial</option>
+                      <option value="deep_dive">Deep Dive</option>
+                      <option value="channel">Channel</option>
+                    </select>
+                  </label>
                   <br />
+
+                  <label>
+                    Format:
+                  <select
+                      name="format"
+                      value={this.state.format}
+                      onChange={this.handleChange}
+                    >
+                      <option value="text">Text</option>
+                      <option value="video">Video</option>
+                    </select>
+                  </label>
                   <br />
-                  <label>Format</label>
-                  <input
-                    type="text"
-                    value={this.state.format}
-                    name="format"
-                    placeholder={this.state.format}
-                    onChange={this.handleChange}
-                  />
+
+                  <label>
+                    Difficulty:
+                  <select
+                      name="difficulty"
+                      value={this.state.difficulty}
+                      onChange={this.handleChange}
+                    >
+                      <option value="basic">Basic</option>
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced</option>
+                    </select>
+                  </label>
                   <br />
+
+                  <label>
+                    Cost:
+                  <select
+                      name="cost"
+                      value={this.state.cost}
+                      onChange={this.handleChange}
+                    >
+                      <option value="0">Free</option>
+                      <option value="1">$</option>
+                      <option value="2">$$</option>
+                      <option value="3">$$$</option>
+                      <option value="4">$$$$</option>
+                    </select>
+                  </label>
                   <br />
-                  <label>Difficulty</label>
-                  <input
-                    type="text"
-                    value={this.state.difficulty}
-                    name="difficulty"
-                    placeholder={this.state.difficulty}
-                    onChange={this.handleChange}
-                  />
-                  <br />
-                  <br />
-                  <label>Cost</label>
-                  <input
-                    type="text"
-                    value={this.state.cost}
-                    name="cost"
-                    placeholder={this.state.cost}
-                    onChange={this.handleChange}
-                  />
                   <br />
                   <div>
                     <button type="submit">Submit</button>

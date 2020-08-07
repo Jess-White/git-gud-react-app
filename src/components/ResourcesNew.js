@@ -36,6 +36,10 @@ class ResourcesNew extends Component {
     });
   }
 
+  // handleChange(event) {
+  //   this.setState({value: event.target.value});
+  // }
+
   handleSelect = (event) => {
     let tag_list = this.state.tag_list
     tag_list += ` ${event.target.value},`
@@ -101,44 +105,63 @@ class ResourcesNew extends Component {
           />
           <br />
 
-          <input
-            type="text"
-            name="resource_type"
-            placeholder="Resource Type"
-            value={this.state.resource_type}
-            onChange={this.handleChange}
-            required
-          />
+          <label>
+            Resource Type:
+          <select
+              name="resource_type"
+              value={this.state.resource_type}
+              onChange={this.handleChange}
+            >
+              <option value="cheat_sheet">Cheat Sheet</option>
+              <option value="tutorial">Tutorial</option>
+              <option value="deep_dive">Deep Dive</option>
+              <option value="channel">Channel</option>
+            </select>
+          </label>
           <br />
 
-          <input
-            type="text"
-            name="format"
-            placeholder="Format"
-            value={this.state.format}
-            onChange={this.handleChange}
-            required
-          />
+          <label>
+            Format:
+          <select
+              name="format"
+              value={this.state.format}
+              onChange={this.handleChange}
+            >
+              <option value="text">Text</option>
+              <option value="video">Video</option>
+            </select>
+          </label>
           <br />
 
-          <input
-            type="text"
-            name="difficulty"
-            placeholder="Difficulty"
-            value={this.state.difficulty}
-            onChange={this.handleChange}
-            required
-          />
+          <label>
+            Difficulty:
+          <select
+              name="difficulty"
+              value={this.state.difficulty}
+              onChange={this.handleChange}
+            >
+              <option value="basic">Basic</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </label>
           <br />
 
-          <input
-            type="text"
-            name="cost"
-            placeholder="Cost"
-            value={this.state.cost}
-            onChange={this.handleChange}
-            required
-          />
+          <label>
+            Cost:
+          <select
+              name="cost"
+              value={this.state.cost}
+              onChange={this.handleChange}
+            >
+              <option value="0">Free</option>
+              <option value="1">$</option>
+              <option value="2">$$</option>
+              <option value="3">$$$</option>
+              <option value="4">$$$$</option>
+            </select>
+          </label>
           <br />
 
           <label>Tags:</label>
