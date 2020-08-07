@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReviewsNew from './ReviewsNew';
-// import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 class Resource extends Component {
@@ -166,6 +166,10 @@ class Resource extends Component {
             return (
               <div className="tile" key={review.id} >
                 <h3>{review.title}</h3>
+                <NavLink
+                  style={{ color: "green" }}
+                  className="navbar-brand"
+                  to={`/reviews/${review.id}`}>{review.title}</NavLink>
                 <h3>{review.body}</h3>
                 <h3>{review.title}</h3>
                 <br />
