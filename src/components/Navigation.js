@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 function Navigation(props) {
   return (
@@ -24,4 +24,4 @@ function Navigation(props) {
   );
 }
 
-export default Navigation;
+export default withRouter(Navigation);

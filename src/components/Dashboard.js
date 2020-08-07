@@ -7,27 +7,19 @@ import CurrentUser from './CurrentUser';
 // import Resources from './Resources';
 // import Reviews from './Reviews';
 import Favorites from './Favorites';
+
 // import Login from './Login';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     // this.state = {
-    //   favorites: []
+
     // }
 
     // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
-
-  // componentDidMount() {
-  //   axios.get('http://localhost:3001/api/favorites', { headers: { "Authorization": `Bearer ${localStorage.token}` } })
-  //     .then(response => {
-  //       console.log(response)
-  //       this.setState({ favorites: response.data })
-  //     })
-  //     .catch(error => console.log(error))
-  // }
 
   handleLogoutClick() {
     localStorage.removeItem("token");

@@ -13,7 +13,7 @@ class Review extends Component {
       rating: '',
       resource_id: '',
       id: '',
-      user_info: '',
+      user_name: '',
       loading: true,
       canEdit: false
     }
@@ -39,7 +39,7 @@ class Review extends Component {
           user_id: response.data.user_id,
           resource_id: response.data.resource_id,
           id: response.data.id,
-          user_info: response.data.user,
+          user_name: response.data.user.user_name,
           loading: false
         });
       })
@@ -124,7 +124,7 @@ class Review extends Component {
         <h3>User: {this.state.user_id}</h3>
         <h3>Resource ID: {this.state.resource_id}</h3>
         <h3>Review ID: {this.state.id}</h3>
-        <h3>User Info: {this.state.user_info}</h3>
+        <h3>Author: {this.state.user_name}</h3>
 
         {this.state.canEdit ? (
           <div>
