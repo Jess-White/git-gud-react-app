@@ -14,6 +14,7 @@ import Reviews from './components/Reviews';
 import Review from './components/Review';
 import ReviewsNew from './components/ReviewsNew';
 import Resource from './components/Resource';
+// import Logout from './components/Logout';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -101,6 +102,9 @@ export default class App extends Component {
             <Route
               exact path={"/reviews-new"} component={ReviewsNew}
             />
+            {/* <Route
+              exact path={"/logout"} component={Logout}
+            /> */}
           </Switch>
         </BrowserRouter>
         <Footer />

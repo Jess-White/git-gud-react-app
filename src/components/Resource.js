@@ -146,7 +146,7 @@ class Resource extends Component {
     }
     return (
       <div className="container">
-        <a href={this.state.url}>{this.state.name}</a>
+        <a href={this.state.url} target="_blank">{this.state.name}</a>
         <h3>Type: {this.state.resource_type}</h3>
         <h3>Format: {this.state.format}</h3>
         <h3>Difficulty: {this.state.difficulty}</h3>
@@ -169,8 +169,11 @@ class Resource extends Component {
                   style={{ color: "green" }}
                   className="navbar-brand"
                   to={`/reviews/${review.id}`}>{review.title}</NavLink>
-                <h3>{review.body}</h3>
-                <h3>{review.title}</h3>
+                {review.body.length > 100 ?
+                  <h3>{review.body.slice(0, 100)} ...</h3>
+                  :
+                  <h3>{review.body}</h3>
+                }
                 <h3>Author: {review.user.user_name}</h3>
                 <br />
               </div>
