@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+// import { Form } from 'react-bootstrap';
 
 class Signup extends Component {
   constructor(props) {
@@ -61,66 +62,79 @@ class Signup extends Component {
 
   render() {
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="first_name"
-            placeholder="First Name"
-            value={this.state.first_name}
-            onChange={this.handleChange}
-            required
-          />
+      <div className="card">
+        <div className="card-body">
+          <div className="card-title">
+            <form onSubmit={this.handleSubmit}>
+              <div className="card-text">
+                <input
+                  type="text"
+                  name="first_name"
+                  placeholder="First Name"
+                  value={this.state.first_name}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className="card-text">
+                <input
+                  type="text"
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={this.state.last_name}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className="card-text">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div>
+                {/* {this.state.errors} */}
+              </div>
+              <div className="card-text">
+                <input
+                  type="text"
+                  name="user_name"
+                  placeholder="User Name"
+                  value={this.state.user_name}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className="card-text">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
+              <div className="card-text">
+                <input
+                  type="password"
+                  name="password_confirmation"
+                  placeholder="Password Confirmation"
+                  value={this.state.password_confirmation}
+                  onChange={this.handleChange}
+                  required
+                />
+              </div>
 
-          <input
-            type="text"
-            name="last_name"
-            placeholder="Last Name"
-            value={this.state.last_name}
-            onChange={this.handleChange}
-            required
-          />
+              <button type="submit">Signup</button>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          {this.state.errors}
-
-          <input
-            type="text"
-            name="user_name"
-            placeholder="User Name"
-            value={this.state.user_name}
-            onChange={this.handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="password_confirmation"
-            placeholder="Password Confirmation"
-            value={this.state.password_confirmation}
-            onChange={this.handleChange}
-            required
-          />
-
-          <button type="submit">Signup</button>
-
-        </form>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

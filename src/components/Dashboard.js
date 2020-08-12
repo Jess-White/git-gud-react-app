@@ -13,18 +13,7 @@ import Favorites from './Favorites';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-
-    // }
-
-    // this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-  }
-
-  handleLogoutClick() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
-    this.props.history.push('/login');
+    this.state = {}
   }
 
   render() {
@@ -34,11 +23,6 @@ class Dashboard extends Component {
         <h1>Dashboard</h1>
         <br />
         <CurrentUser history={this.props.history} />
-        <br />
-        <h1>Status: {this.props.loggedInStatus}</h1>
-        <br />
-        <button onClick={() => this.handleLogoutClick()}>
-          Log Out</button>
         <br />
         <br />
 
