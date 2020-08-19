@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import login from './components/login';
-// import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
@@ -14,103 +12,89 @@ import Reviews from './components/Reviews';
 import Review from './components/Review';
 import ReviewsNew from './components/ReviewsNew';
 import Resource from './components/Resource';
-// import Logout from './components/Logout';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends Component {
-  constructor() {
-    super();
+	constructor() {
+		super();
 
-    this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    };
+		this.state = {
+			loggedInStatus: 'NOT_LOGGED_IN',
+			user: {},
+		};
 
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
+		this.handleLogin = this.handleLogin.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
 
-  checkLoginStatus() {
-    if (localStorage.token && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-      this.setState({
-        loggedInStatus: "LOGGED_IN"
-      });
-    } else if (!localStorage.token && this.state.loggedInStatus === "LOGGED_IN") {
-      this.setState({
-        loggedInStatus: "NOT_LOGGED_IN",
-        user: {}
-      })
-    }
-  }
+	checkLoginStatus() {
+		if (localStorage.token && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
+			this.setState({
+				loggedInStatus: 'LOGGED_IN',
+			});
+		} else if (
+			!localStorage.token &&
+			this.state.loggedInStatus === 'LOGGED_IN'
+		) {
+			this.setState({
+				loggedInStatus: 'NOT_LOGGED_IN',
+				user: {},
+			});
+		}
+	}
 
-  componentDidMount() {
-    this.checkLoginStatus();
-  }
+	componentDidMount() {
+		this.checkLoginStatus();
+	}
 
-  handleLogout() {
-    this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    })
-  }
+	handleLogout() {
+		this.setState({
+			loggedInStatus: 'NOT_LOGGED_IN',
+			user: {},
+		});
+	}
 
-  handleLogin(data) {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      user: data.user
-    });
-  }
+	handleLogin(data) {
+		this.setState({
+			loggedInStatus: 'LOGGED_IN',
+			user: data.user,
+		});
+	}
 
-  render() {
-    return (
-      <div className="app">
-        <Header />
-        <BrowserRouter>
-          <Navigation loggedInStatus={this.state.loggedInStatus} />
-          <Switch>
-            <Route
-              exact path={"/signup"} component={Signup}
-            />
-            <Route
-              exact path={"/login"} component={Login}
-            />
-            <Route
-              exact path={"/dashboard"}
-              render={props => (
-                <Dashboard {...props}
-                  loggedInStatus={this.state.loggedInStatus}
-                />
-              )}
-            />
-            <Route
-              exact path={"/resources"} component={Resources}
-            />
-            <Route
-              exact path={"/resources/:id"} component={Resource}
-            />
-            <Route
-              exact path={"/resources-new"} component={ResourcesNew}
-            />
-            <Route
-              exact path={"/reviews"} component={Reviews}
-            />
-            <Route
-              exact path={"/reviews/:id"} component={Review}
-            />
-            <Route
-              exact path={"/reviews-new"} component={ReviewsNew}
-            />
-            {/* <Route
+	render() {
+		return (
+			<div className="app">
+				<Header />
+				<BrowserRouter>
+					<Navigation loggedInStatus={this.state.loggedInStatus} />
+					<Switch>
+						<Route exact path={'/signup'} component={Signup} />
+						<Route exact path={'/login'} component={Login} />
+						<Route
+							exact
+							path={'/dashboard'}
+							render={(props) => (
+								<Dashboard
+									{...props}
+									loggedInStatus={this.state.loggedInStatus}
+								/>
+							)}
+						/>
+						<Route exact path={'/resources'} component={Resources} />
+						<Route exact path={'/resources/:id'} component={Resource} />
+						<Route exact path={'/resources-new'} component={ResourcesNew} />
+						<Route exact path={'/reviews'} component={Reviews} />
+						<Route exact path={'/reviews/:id'} component={Review} />
+						<Route exact path={'/reviews-new'} component={ReviewsNew} />
+						{/* <Route
               exact path={"/logout"} component={Logout}
             /> */}
-          </Switch>
-        </BrowserRouter>
-        <Footer />
-      </div>
-    )
-  }
+					</Switch>
+				</BrowserRouter>
+				<Footer />
+			</div>
+		);
+	}
 }
 
 // import SignUp from './components/SignUp';
@@ -160,8 +144,7 @@ export default class App extends Component {
 
 //               <Route component={Error}/>
 //            </Switch>
-//         </div> 
+//         </div>
 //       </BrowserRouter>
 //     )
 // };
-
