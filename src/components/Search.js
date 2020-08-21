@@ -3,19 +3,16 @@ import React from 'react';
 export default function Search(props) {
 	return (
 		<div>
-			<h1>Search For Coding Resources</h1>
+			<h1>Search For A Coding Resource</h1>
 			<form className="searchForm">
 				<input
 					value={props.query}
 					onChange={props.handleChange}
 					type="text"
 					className="search"
-					placeholder="Tag or keyword"
+					placeholder="Type a Tag or Keyword Here"
 					name="query"
 				/>
-				{/* <ul className="suggestions">
-          <li>Filter for a Tag</li>
-        </ul> */}
 			</form>
 		</div>
 	);

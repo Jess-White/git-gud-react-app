@@ -148,6 +148,12 @@ class CurrentUser extends Component {
 										<button type="submit" className="btn-lg">
 											Submit
 										</button>
+										<button
+											onClick={this.toggleHidden.bind(this)}
+											className="btn-lg"
+										>
+											Close
+										</button>
 									</div>
 								</form>
 								<br />

@@ -1,3 +1,8 @@
+body {
+	background-color: black;
+	font-family: 'Courier';
+}
+
 .jumbotron {
 	background-color: black;
 }
@@ -14,6 +19,12 @@
 	font-family: 'Courier';
 }
 
+.inapp-link {
+	color: #00e000;
+	font-size: 30px;
+	font-family: 'Courier';
+}
+
 footer {
 	display: flex;
 	align-items: center;
@@ -23,7 +34,17 @@ footer {
 	margin-top: 100px;
 }
 
-h1 {
+h1,
+h2,
+h3,
+h4 {
+	color: #00e000;
+	font-family: 'Courier';
+}
+
+a {
+	color: #ff37ff;
+	font-size: 18px;
 	font-family: 'Courier';
 }
 
@@ -51,7 +72,8 @@ button {
 	background-color: black;
 }
 
-input {
+input,
+select {
 	color: #00e000;
 	font-family: 'Courier';
 	background-color: black;
