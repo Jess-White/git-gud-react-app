@@ -13,6 +13,7 @@ class Resource extends Component {
 			id: '',
 			url: '',
 			name: '',
+			author: '',
 			resource_type: '',
 			format: '',
 			difficulty: '',
@@ -39,6 +40,7 @@ class Resource extends Component {
 					id: response.data.id,
 					url: response.data.url,
 					name: response.data.name,
+					author: response.data.author,
 					resource_type: response.data.resource_type,
 					format: response.data.format,
 					difficulty: response.data.difficulty,
@@ -149,13 +151,21 @@ class Resource extends Component {
 		}
 		return (
 			<div className="container">
-				<a href={this.state.url} target="_blank" className="inapp-link">
+				<a
+					href={this.state.url}
+					target="_blank"
+					className="inapp-link"
+					rel="noopener noreferrer"
+				>
 					{this.state.name}
 				</a>
+				<br />
+				<br />
+				<h3>Author: {this.state.author}</h3>
 				<h3>Type: {this.state.resource_type}</h3>
 				<h3>Format: {this.state.format}</h3>
 				<h3>Difficulty: {this.state.difficulty}</h3>
-				<h3>Cost: {this.state.cost}</h3>
+				<h3>Cost: {this.state.cost === 0 ? 'Free' : this.state.cost}</h3>
 				<br />
 
 				{this.state.favorite === false ? (
@@ -170,7 +180,7 @@ class Resource extends Component {
 				<br />
 				<br />
 
-				<h1>Add Your Review:</h1>
+				<h1>Add Your Own Review</h1>
 				<div>
 					<ReviewsNew
 						resource_id={this.state.id}
@@ -193,10 +203,7 @@ class Resource extends Component {
 										{review.title}
 									</NavLink>
 								</div>
-								<div
-									className="card-body"
-									style={{ backgroundColor: '#00e000' }}
-								>
+								<div className="card-body" style={{ backgroundColor: 'black' }}>
 									{review.body.length > 100 ? (
 										<h3>{review.body.slice(0, 100)} ...</h3>
 									) : (

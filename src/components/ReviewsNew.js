@@ -42,7 +42,6 @@ class ReviewsNew extends Component {
 				},
 				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
 			)
-
 			.then((response) => {
 				if (response.data) {
 					this.props.history.push('/reviews');
@@ -57,7 +56,6 @@ class ReviewsNew extends Component {
 	render() {
 		return (
 			<div className="card">
-				{/* <div className="card-title">Write Your Review</div> */}
 				<div className="card-body">
 					<form onSubmit={this.handleSubmit}>
 						<div className="form-group">
@@ -72,13 +70,14 @@ class ReviewsNew extends Component {
 						</div>
 						<div className="form-group">
 							<label>Tell Us What You Think</label>
-							<input
-								type="text"
+							<textarea
 								name="body"
 								value={this.state.body}
 								onChange={this.handleChange}
+								rows="4"
+								cols="50"
 								required
-							/>
+							></textarea>
 						</div>
 						<div className="form-group">
 							<label>How Would You Rate This Resource?</label>

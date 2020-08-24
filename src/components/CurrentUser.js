@@ -98,11 +98,9 @@ class CurrentUser extends Component {
 					</button>
 					<br />
 					<br />
-					{/* {!this.state.isHidden && <UserUpdate />} */}
 					{this.state.isHidden ? (
 						<div className="card">
 							<div className="card-body">
-								{/* <h1>User Update here</h1> */}
 								<form onSubmit={this.handleSubmit}>
 									<div className="form-group">
 										<label>First Name</label>

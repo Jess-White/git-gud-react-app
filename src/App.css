@@ -73,7 +73,8 @@ button {
 }
 
 input,
-select {
+select,
+textarea {
 	color: #00e000;
 	font-family: 'Courier';
 	background-color: black;
