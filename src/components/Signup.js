@@ -3,141 +3,144 @@ import axios from 'axios';
 // import { Form } from 'react-bootstrap';
 
 class Signup extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      user_name: "",
-      password: "",
-      password_confirmation: "",
-      signUpErrors: "",
-      errors: []
-    }
+		this.state = {
+			first_name: '',
+			last_name: '',
+			email: '',
+			user_name: '',
+			password: '',
+			password_confirmation: '',
+			signUpErrors: '',
+			errors: [],
+		};
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+	}
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
+	handleChange(event) {
+		this.setState({
+			[event.target.name]: event.target.value,
+		});
+	}
 
-  handleSubmit(event) {
-    const {
-      first_name, last_name, email, user_name, password, password_confirmation
-    } = this.state;
+	handleSubmit(event) {
+		const {
+			first_name,
+			last_name,
+			email,
+			user_name,
+			password,
+			password_confirmation,
+		} = this.state;
 
-    axios
-      .post(
-        "http://localhost:3001/api/users",
-        {
-          first_name: first_name,
-          last_name: last_name,
-          email: email,
-          user_name: user_name,
-          password: password,
-          password_confirmation: password_confirmation
-        }
-        // { withCredentials: true }
-      )
+		axios
+			.post(
+				'http://localhost:3001/api/users',
+				{
+					first_name: first_name,
+					last_name: last_name,
+					email: email,
+					user_name: user_name,
+					password: password,
+					password_confirmation: password_confirmation,
+				}
+				// { withCredentials: true }
+			)
 
-      .then(response => {
-        if (response.data.message === 'User created successfully!') {
-          this.props.history.push("/login");
-        }
-      })
-      .catch(error => {
-        this.setState({
-          errors: error.response.data.errors
-        })
-        console.log(this.state.errors);
-      });
-    event.preventDefault();
-  }
+			.then((response) => {
+				if (response.data.message === 'User created successfully!') {
+					this.props.history.push('/login');
+				}
+			})
+			.catch((error) => {
+				this.setState({
+					errors: error.response.data.errors,
+				});
+				console.log(this.state.errors);
+			});
+		event.preventDefault();
+	}
 
-  render() {
-    return (
-      <div className="card">
-        <div className="card-body">
-          <div className="card-title">
-            <form onSubmit={this.handleSubmit}>
-              <div className="card-text">
-                <input
-                  type="text"
-                  name="first_name"
-                  placeholder="First Name"
-                  value={this.state.first_name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="card-text">
-                <input
-                  type="text"
-                  name="last_name"
-                  placeholder="Last Name"
-                  value={this.state.last_name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="card-text">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div>
-                {/* {this.state.errors} */}
-              </div>
-              <div className="card-text">
-                <input
-                  type="text"
-                  name="user_name"
-                  placeholder="User Name"
-                  value={this.state.user_name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="card-text">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="card-text">
-                <input
-                  type="password"
-                  name="password_confirmation"
-                  placeholder="Password Confirmation"
-                  value={this.state.password_confirmation}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-
-              <button type="submit">Signup</button>
-
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="card">
+				<div className="card-body">
+					<form onSubmit={this.handleSubmit}>
+						<div className="form-group">
+							<input
+								type="text"
+								name="first_name"
+								placeholder="First Name"
+								value={this.state.first_name}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="form-group">
+							<input
+								type="text"
+								name="last_name"
+								placeholder="Last Name"
+								value={this.state.last_name}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="form-group">
+							<input
+								type="email"
+								name="email"
+								placeholder="Email"
+								value={this.state.email}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div>{/* {this.state.errors} */}</div>
+						<div className="form-group">
+							<input
+								type="text"
+								name="user_name"
+								placeholder="User Name"
+								value={this.state.user_name}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="form-group">
+							<input
+								type="password"
+								name="password"
+								placeholder="Password"
+								value={this.state.password}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="form-group">
+							<input
+								type="password"
+								name="password_confirmation"
+								placeholder="Password Confirmation"
+								value={this.state.password_confirmation}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="text-center">
+							<button className="btn-lg" type="submit">
+								Signup
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Signup;
