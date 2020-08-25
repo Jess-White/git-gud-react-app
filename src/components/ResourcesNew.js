@@ -8,6 +8,7 @@ class ResourcesNew extends Component {
 		this.state = {
 			name: '',
 			url: '',
+			author: '',
 			resource_type: '',
 			format: '',
 			difficulty: '',
@@ -55,6 +56,7 @@ class ResourcesNew extends Component {
 		const {
 			name,
 			url,
+			author,
 			resource_type,
 			format,
 			difficulty,
@@ -69,6 +71,7 @@ class ResourcesNew extends Component {
 				{
 					name: name,
 					url: url,
+					author: author,
 					resource_type: resource_type,
 					format: format,
 					difficulty: difficulty,
@@ -116,9 +119,18 @@ class ResourcesNew extends Component {
 							/>
 						</div>
 						<div className="form-group">
+							<label>Author</label>
+							<input
+								type="text"
+								name="author"
+								value={this.state.author}
+								onChange={this.handleChange}
+								required
+							/>
+						</div>
+						<div className="form-group">
 							<label>Resource Type</label>
 							<select
-								// class="form-control"
 								name="resource_type"
 								value={this.state.resource_type}
 								onChange={this.handleChange}

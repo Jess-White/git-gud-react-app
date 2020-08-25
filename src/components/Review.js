@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import ReviewsNew from './ReviewsNew';
-// import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Review extends Component {
