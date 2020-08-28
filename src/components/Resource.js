@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReviewsNew from './ReviewsNew';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Resource extends Component {
@@ -58,6 +59,14 @@ class Resource extends Component {
 			});
 	}
 
+	updateReviews = (newReview) => {
+		const reviews = this.state.reviews;
+		reviews.push(newReview);
+		this.setState({
+			reviews: reviews,
+		});
+	};
+
 	toggleHidden() {
 		this.setState({
 			isHidden: !this.state.isHidden,
@@ -65,7 +74,7 @@ class Resource extends Component {
 	}
 
 	showEditAbility() {
-		if (this.state.user_id == localStorage.user_id) {
+		if (this.state.user_id === parseInt(localStorage.user_id)) {
 			this.setState({
 				canEdit: !this.state.canEdit,
 			});
@@ -194,6 +203,7 @@ class Resource extends Component {
 					<ReviewsNew
 						resource_id={this.state.id}
 						history={this.props.history}
+						updateReviews={this.updateReviews}
 					/>
 				</div>
 				<br />
@@ -277,7 +287,7 @@ class Resource extends Component {
 												value={this.state.resource_type}
 												onChange={this.handleChange}
 											>
-												<option value="" disabled selected>
+												<option value="" disabled>
 													Select a Resource Type
 												</option>
 												<option value="channel">Channel</option>
@@ -293,7 +303,7 @@ class Resource extends Component {
 												value={this.state.format}
 												onChange={this.handleChange}
 											>
-												<option value="" disabled selected>
+												<option value="" disabled>
 													Select a Format
 												</option>
 												<option value="text">Text</option>
@@ -307,7 +317,7 @@ class Resource extends Component {
 												value={this.state.difficulty}
 												onChange={this.handleChange}
 											>
-												<option value="" disabled selected>
+												<option value="" disabled>
 													Select a Level of Difficulty
 												</option>
 												<option value="basic">Basic</option>
@@ -323,7 +333,7 @@ class Resource extends Component {
 												value={this.state.cost}
 												onChange={this.handleChange}
 											>
-												<option value="" disabled selected>
+												<option value="" disabled>
 													Select a Cost $
 												</option>
 												<option value="0">Free</option>
@@ -356,4 +366,4 @@ class Resource extends Component {
 	}
 }
 
-export default Resource;
+export default withRouter(Resource);

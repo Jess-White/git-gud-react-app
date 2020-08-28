@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class ReviewsNew extends Component {
@@ -17,6 +18,14 @@ class ReviewsNew extends Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
+	clearForm = () => {
+		this.setState({
+			title: '',
+			body: '',
+			rating: '',
+		});
+	};
+
 	componentDidMount() {
 		console.log(this.state);
 	}
@@ -28,23 +37,17 @@ class ReviewsNew extends Component {
 	}
 
 	handleSubmit(event) {
-		const { title, body, rating, user_id, resource_id } = this.state;
+		const newReview = this.state;
 
 		axios
-			.post(
-				'http://localhost:3001/api/reviews',
-				{
-					title: title,
-					body: body,
-					rating: rating,
-					user_id: user_id,
-					resource_id: resource_id,
-				},
-				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
-			)
+			.post('http://localhost:3001/api/reviews', newReview, {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
 			.then((response) => {
+				console.log(response);
 				if (response.data) {
-					this.props.history.push('/reviews');
+					this.props.updateReviews(response.data);
+					this.clearForm();
 				}
 			})
 			.catch((error) => {
@@ -86,7 +89,7 @@ class ReviewsNew extends Component {
 								value={this.state.rating}
 								onChange={this.handleChange}
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Between 1 and 5 Stars
 								</option>
 								<option value="1">1</option>
@@ -108,4 +111,4 @@ class ReviewsNew extends Component {
 	}
 }
 
-export default ReviewsNew;
+export default withRouter(ReviewsNew);

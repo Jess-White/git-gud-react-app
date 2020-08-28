@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { Form } from 'react-bootstrap';
 
 class Signup extends Component {
 	constructor(props) {

@@ -13,13 +13,7 @@ class Login extends Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		// this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
 	}
-
-	// handleSuccessfulAuth(data) {
-	//   this.props.handleLogin(data);
-	//   this.props.history.push("/dashboard");
-	// }
 
 	handleChange(event) {
 		this.setState({
@@ -42,7 +36,6 @@ class Login extends Component {
 
 			.then((response) => {
 				if (response.data.jwt) {
-					// this.props.handleSuccessfulAuth(response.data);
 					localStorage.setItem('token', response.data.jwt);
 					localStorage.setItem('user_id', response.data.user_id);
 					this.props.history.push('/dashboard');

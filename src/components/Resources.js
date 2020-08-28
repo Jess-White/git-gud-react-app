@@ -8,7 +8,6 @@ class Resources extends Component {
 		super(props);
 		this.state = {
 			resources: [],
-			// tags: [],
 			query: '',
 		};
 	}
@@ -22,15 +21,6 @@ class Resources extends Component {
 				this.setState({ resources: response.data });
 			})
 			.catch((error) => console.log(error));
-
-		// axios.get('http://localhost:3001/api/tags/')
-		//   .then(response => {
-		//     this.setState({ tags: response.data });
-		//     // console.log(this.state.tags);
-		//   })
-		//   .catch(function (error) {
-		//     console.log(error);
-		//   })
 	}
 
 	handleChange = (event) => {
@@ -73,7 +63,9 @@ class Resources extends Component {
 								</NavLink>
 							</div>
 							<div className="card-body" style={{ backgroundColor: '#009B00' }}>
-								{resource.author ? <h4>By: {resource.author}</h4> : null}
+								{resource.author ? (
+									<h4 style={{ color: 'black' }}>By: {resource.author}</h4>
+								) : null}
 								<a href={resource.url}>{resource.url}</a>
 								<br />
 								<div>

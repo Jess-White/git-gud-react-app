@@ -52,10 +52,6 @@ a {
 	background-color: #00e000;
 }
 
-/* .form-group {
-	padding: 40px;
-} */
-
 .card-title {
 	margin-bottom: 5%;
 	margin-top: 5%;
@@ -70,6 +66,13 @@ button {
 	color: #00e000;
 	font-family: 'Courier';
 	background-color: black;
+}
+
+.logout-btn {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	color: black;
 }
 
 input,

@@ -55,7 +55,7 @@ class Review extends Component {
 	}
 
 	showEditAbility() {
-		if (this.state.user_id == localStorage.user_id) {
+		if (this.state.user_id === parseInt(localStorage.user_id)) {
 			this.setState({
 				canEdit: !this.state.canEdit,
 			});
