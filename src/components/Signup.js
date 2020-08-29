@@ -12,7 +12,6 @@ class Signup extends Component {
 			user_name: '',
 			password: '',
 			password_confirmation: '',
-			signUpErrors: '',
 			errors: [],
 		};
 
@@ -99,7 +98,6 @@ class Signup extends Component {
 								required
 							/>
 						</div>
-						<div>{/* {this.state.errors} */}</div>
 						<div className="form-group">
 							<input
 								type="text"
@@ -129,6 +127,15 @@ class Signup extends Component {
 								onChange={this.handleChange}
 								required
 							/>
+						</div>
+						<div>
+							{this.state.errors.map((error, index) => {
+								return (
+									<span key={index} style={{ color: 'red' }}>
+										{error},{' '}
+									</span>
+								);
+							})}
 						</div>
 						<div className="text-center">
 							<button className="btn-lg" type="submit">

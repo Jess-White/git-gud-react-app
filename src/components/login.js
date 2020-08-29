@@ -8,7 +8,7 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			loginErrors: '',
+			errorMessage: '',
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,7 +42,10 @@ class Login extends Component {
 				}
 			})
 			.catch((error) => {
-				console.log('login error', error);
+				this.setState({
+					errorMessage: error.response.data.message,
+				});
+				console.log(this.state.errorMessage);
 			});
 		event.preventDefault();
 	}
@@ -71,6 +74,9 @@ class Login extends Component {
 								onChange={this.handleChange}
 								required
 							/>
+						</div>
+						<div>
+							<span style={{ color: 'red' }}>{this.state.errorMessage}</span>
 						</div>
 						<div className="text-center">
 							<button type="submit" className="btn-lg">
