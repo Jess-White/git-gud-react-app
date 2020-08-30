@@ -46,12 +46,6 @@ class Favorites extends Component {
 								) : null}
 								<a href={favorite.resource.url}>{favorite.resource.url}</a>
 								<br />
-								{/* <div>
-									Tags:{' '}
-									{favorite.resource.tags.map((tag, index) => {
-										return <span key={index}>{tag}, </span>;
-									})}
-								</div> */}
 							</div>
 						</div>
 					);
@@ -62,9 +56,3 @@ class Favorites extends Component {
 }
 
 export default Favorites;
-
-/* <div className="card" key={favorite.id}>
-	<Link to={'/resources/' + favorite.resource.id}>
-		<h4>{favorite.resource.name}</h4>
-	</Link>
-</div> */

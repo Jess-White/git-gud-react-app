@@ -4,7 +4,6 @@ import axios from 'axios';
 class Review extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.state = {
 			title: '',
 			body: '',
@@ -22,13 +21,11 @@ class Review extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.state);
 		axios
 			.get(`http://localhost:3001/api/reviews/${this.props.match.params.id}`, {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response.data);
 				this.setState({
 					title: response.data.title,
 					body: response.data.body,
@@ -96,12 +93,15 @@ class Review extends Component {
 		}
 		return (
 			<div className="container">
-				<h3>Title: {this.state.title}</h3>
 				<h3>Rating: {this.state.rating}</h3>
+				<h3>Title: {this.state.title}</h3>
 				<h3>Author: {this.state.user_name}</h3>
 				<br />
 				<h3>{this.state.body}</h3>
 				<br />
+
+				{/* beginning of review update if current user created review */}
+
 				<div>
 					{this.state.canEdit ? (
 						<div className="container">
@@ -122,6 +122,7 @@ class Review extends Component {
 													name="title"
 													placeholder={this.state.title}
 													onChange={this.handleChange}
+													required
 												/>
 											</div>
 											<div className="form-group">
@@ -132,19 +133,28 @@ class Review extends Component {
 													name="body"
 													placeholder={this.state.body}
 													onChange={this.handleChange}
+													required
 													rows="4"
 													cols="50"
 												></textarea>
 											</div>
 											<div className="form-group">
-												<label>Rating</label>
-												<input
-													type="text"
-													value={this.state.rating}
+												<label>How Would You Rate This Resource?</label>
+												<select
 													name="rating"
-													placeholder={this.state.rating}
+													value={this.state.rating}
 													onChange={this.handleChange}
-												/>
+													required
+												>
+													<option value="" disabled>
+														Between 1 and 5 Stars
+													</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select>
 											</div>
 											<div className="text-center">
 												<button type="submit" className="btn-lg">

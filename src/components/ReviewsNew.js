@@ -26,10 +26,6 @@ class ReviewsNew extends Component {
 		});
 	};
 
-	componentDidMount() {
-		console.log(this.state);
-	}
-
 	handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value,
@@ -44,7 +40,6 @@ class ReviewsNew extends Component {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response);
 				if (response.data) {
 					this.props.updateReviews(response.data);
 					this.clearForm();
@@ -88,6 +83,7 @@ class ReviewsNew extends Component {
 								name="rating"
 								value={this.state.rating}
 								onChange={this.handleChange}
+								required
 							>
 								<option value="" disabled>
 									Between 1 and 5 Stars

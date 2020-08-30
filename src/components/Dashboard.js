@@ -9,8 +9,11 @@ class Dashboard extends Component {
 		this.state = {};
 	}
 
+	componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
 	render() {
-		// let favorites = this.state.favorites;
 		return (
 			<div className="container">
 				<CurrentUser history={this.props.history} />
@@ -19,11 +22,6 @@ class Dashboard extends Component {
 					<button className="btn-lg">Add New Learning Resource</button>
 				</Link>
 				<Favorites />
-				{/* <div>
-          {this.state.favorites.map(favorite =>
-            <Resource key={favorite.resource.id} />
-          )}
-        </div> */}
 			</div>
 		);
 	}

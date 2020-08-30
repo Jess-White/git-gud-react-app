@@ -7,18 +7,22 @@ class Resources extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loading: true,
 			resources: [],
 			query: '',
 		};
 	}
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		axios
 			.get('http://localhost:3001/api/resources', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response);
-				this.setState({ resources: response.data });
+				this.setState({
+					resources: response.data,
+					loading: false,
+				});
 			})
 			.catch((error) => console.log(error));
 	}
@@ -30,15 +34,10 @@ class Resources extends Component {
 		});
 	};
 
-	// filterQuery() {
-	//   const tagQuery = this.query.includes(this.tags);
-
-	//   return lowerCaseStateName.includes(lowerCaseQuery)
-	//     || lowerCaseStateAbbreviation.includes(lowerCaseQuery)
-
-	// }
-
 	render() {
+		if (this.state.loading) {
+			return <h1>Loading....</h1>;
+		}
 		const filteredResources = this.state.resources.filter((resource) => {
 			return this.state.query
 				? resource.tags.some((tag) =>

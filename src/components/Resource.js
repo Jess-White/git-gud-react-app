@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import ReviewsNew from './ReviewsNew';
-import { NavLink } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Resource extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.state = {
 			loading: true,
 			user_id: '',
@@ -15,6 +13,7 @@ class Resource extends Component {
 			url: '',
 			name: '',
 			author: '',
+			description: '',
 			resource_type: '',
 			format: '',
 			difficulty: '',
@@ -29,19 +28,20 @@ class Resource extends Component {
 		this.showEditAbility = this.showEditAbility.bind(this);
 	}
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		axios
 			.get(
 				`http://localhost:3001/api/resources/${this.props.match.params.id}`,
 				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
 			)
 			.then((response) => {
-				console.log(response.data);
 				this.setState({
 					user_id: response.data.user_id,
 					id: response.data.id,
 					url: response.data.url,
 					name: response.data.name,
 					author: response.data.author,
+					description: response.data.description,
 					resource_type: response.data.resource_type,
 					format: response.data.format,
 					difficulty: response.data.difficulty,
@@ -95,7 +95,6 @@ class Resource extends Component {
 				this.setState({
 					favorite: true,
 				});
-				console.log(response);
 			})
 			.catch((error) => {
 				console.log('favorite create error', error);
@@ -135,6 +134,7 @@ class Resource extends Component {
 			name,
 			url,
 			author,
+			description,
 			resource_type,
 			format,
 			difficulty,
@@ -147,6 +147,7 @@ class Resource extends Component {
 					name: name,
 					url: url,
 					author: author,
+					description: description,
 					resource_type: resource_type,
 					format: format,
 					difficulty: difficulty,
@@ -161,6 +162,8 @@ class Resource extends Component {
 				console.log('resource update error', error);
 			});
 		event.preventDefault();
+
+		// const cost$ = '$';
 	}
 
 	render() {
@@ -174,16 +177,25 @@ class Resource extends Component {
 					target="_blank"
 					className="inapp-link"
 					rel="noopener noreferrer"
+					style={{ fontSize: 30 }}
 				>
 					{this.state.name}
 				</a>
 				<br />
 				<br />
-				<h3>Author: {this.state.author}</h3>
-				<h3>Type: {this.state.resource_type}</h3>
-				<h3>Format: {this.state.format}</h3>
-				<h3>Difficulty: {this.state.difficulty}</h3>
-				<h3>Cost: {this.state.cost === 0 ? 'Free' : this.state.cost}</h3>
+				<ul style={{ fontSize: 25 }}>
+					<li>Author: {this.state.author}</li>
+					<li>Type: {this.state.resource_type}</li>
+					<li>Format: {this.state.format}</li>
+					<li>Difficulty: {this.state.difficulty}</li>
+					<li>
+						Cost:{' '}
+						{this.state.cost === 0
+							? 'Free'
+							: '$'.repeat(parseInt(this.state.cost))}
+					</li>
+					<li>Description: {this.state.description}</li>
+				</ul>
 				<br />
 
 				{this.state.favorite === false ? (
@@ -197,6 +209,8 @@ class Resource extends Component {
 				)}
 				<br />
 				<br />
+
+				{/* Create review starts here */}
 
 				<h1>Add Your Own Review</h1>
 				<div>
@@ -218,18 +232,27 @@ class Resource extends Component {
 									className="card-header"
 									style={{ backgroundColor: 'black' }}
 								>
-									<NavLink className="inapp-link" to={`/reviews/${review.id}`}>
+									<Link className="inapp-link" to={`/reviews/${review.id}`}>
 										{review.title}
-									</NavLink>
-								</div>
-								<div className="card-body" style={{ backgroundColor: 'black' }}>
+									</Link>
+									<h3>{review.rating}</h3>
 									{review.body.length > 100 ? (
 										<h3>{review.body.slice(0, 100)} ...</h3>
 									) : (
 										<h3>{review.body}</h3>
 									)}
 									<h3>By: {review.user.user_name}</h3>
-									<br />
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										style={{ display: 'none' }}
+									>
+										<symbol id="star" viewBox="214.7 0 182.6 792">
+											{/* link or path to star svg */}
+										</symbol>
+										<svg className="icon">
+											<use xlinkHref="#star" />
+										</svg>
+									</svg>
 								</div>
 							</div>
 						);
@@ -237,7 +260,7 @@ class Resource extends Component {
 				</div>
 				<br />
 
-				{/* beginning of resource update */}
+				{/* beginning of resource update if user created resource */}
 
 				{this.state.canEdit ? (
 					<div className="container">
@@ -275,7 +298,7 @@ class Resource extends Component {
 											<input
 												type="text"
 												value={this.state.author}
-												name="url"
+												name="author"
 												placeholder={this.state.author}
 												onChange={this.handleChange}
 											/>
@@ -343,6 +366,17 @@ class Resource extends Component {
 												<option value="4">$$$$</option>
 											</select>
 										</div>
+										<div className="form-group">
+											<label>Description</label>
+											<textarea
+												name="description"
+												value={this.state.description}
+												onChange={this.handleChange}
+												rows="4"
+												cols="50"
+												required
+											></textarea>
+										</div>
 										<div className="text-center">
 											<button type="submit" className="btn-lg">
 												Submit Update
@@ -366,4 +400,4 @@ class Resource extends Component {
 	}
 }
 
-export default withRouter(Resource);
+export default Resource;
