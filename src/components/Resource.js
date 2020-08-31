@@ -26,7 +26,9 @@ class Resource extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showEditAbility = this.showEditAbility.bind(this);
+		this.createStars = this.createStars.bind(this);
 	}
+
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		axios
@@ -162,8 +164,12 @@ class Resource extends Component {
 				console.log('resource update error', error);
 			});
 		event.preventDefault();
+	}
 
-		// const cost$ = '$';
+	createStars(num) {
+		let star = '\u2605';
+		let blankStar = '\u2606';
+		return star.repeat(parseInt(num)) + blankStar.repeat(5 - parseInt(num));
 	}
 
 	render() {
@@ -235,7 +241,9 @@ class Resource extends Component {
 									<Link className="inapp-link" to={`/reviews/${review.id}`}>
 										{review.title}
 									</Link>
-									<h3>{review.rating}</h3>
+									{/* <h3>{review.rating}</h3> */}
+									{/* <h3>&#9733;&#9734;</h3> */}
+									<h3>{this.createStars(review.rating)}</h3>
 									{review.body.length > 100 ? (
 										<h3>{review.body.slice(0, 100)} ...</h3>
 									) : (
