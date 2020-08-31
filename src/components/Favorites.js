@@ -16,7 +16,6 @@ class Favorites extends Component {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response);
 				this.setState({ favorites: response.data });
 			})
 			.catch((error) => console.log(error));

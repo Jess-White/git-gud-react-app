@@ -190,7 +190,7 @@ class Resource extends Component {
 				<br />
 				<br />
 				<ul style={{ fontSize: 25 }}>
-					<li>Author: {this.state.author}</li>
+					{this.state.author ? <li>Author: {this.state.author}</li> : null}
 					<li>Type: {this.state.resource_type}</li>
 					<li>Format: {this.state.format}</li>
 					<li>Difficulty: {this.state.difficulty}</li>
