@@ -8,6 +8,8 @@ class ResourcesNew extends Component {
 		this.state = {
 			name: '',
 			url: '',
+			author: '',
+			description: '',
 			resource_type: '',
 			format: '',
 			difficulty: '',
@@ -15,6 +17,7 @@ class ResourcesNew extends Component {
 			user_id: localStorage.user_id,
 			tag_list: '',
 			tags: [],
+			errors: [],
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +25,7 @@ class ResourcesNew extends Component {
 	}
 
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		axios
 			.get('http://localhost:3001/api/tags', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
@@ -39,10 +43,6 @@ class ResourcesNew extends Component {
 		});
 	}
 
-	// handleChange(event) {
-	//   this.setState({value: event.target.value});
-	// }
-
 	handleSelect = (event) => {
 		let tag_list = this.state.tag_list;
 		tag_list += ` ${event.target.value},`;
@@ -55,6 +55,8 @@ class ResourcesNew extends Component {
 		const {
 			name,
 			url,
+			author,
+			description,
 			resource_type,
 			format,
 			difficulty,
@@ -69,6 +71,8 @@ class ResourcesNew extends Component {
 				{
 					name: name,
 					url: url,
+					author: author,
+					description: description,
 					resource_type: resource_type,
 					format: format,
 					difficulty: difficulty,
@@ -116,14 +120,23 @@ class ResourcesNew extends Component {
 							/>
 						</div>
 						<div className="form-group">
+							<label>Author</label>
+							<input
+								type="text"
+								name="author"
+								value={this.state.author}
+								onChange={this.handleChange}
+							/>
+						</div>
+						<div className="form-group">
 							<label>Resource Type</label>
 							<select
-								// class="form-control"
 								name="resource_type"
 								value={this.state.resource_type}
 								onChange={this.handleChange}
+								required
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select a Resource Type
 								</option>
 								<option value="channel">Channel</option>
@@ -138,8 +151,9 @@ class ResourcesNew extends Component {
 								name="format"
 								value={this.state.format}
 								onChange={this.handleChange}
+								required
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select a Format
 								</option>
 								<option value="text">Text</option>
@@ -152,8 +166,9 @@ class ResourcesNew extends Component {
 								name="difficulty"
 								value={this.state.difficulty}
 								onChange={this.handleChange}
+								required
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select a Level of Difficulty
 								</option>
 								<option value="basic">Basic</option>
@@ -168,8 +183,9 @@ class ResourcesNew extends Component {
 								name="cost"
 								value={this.state.cost}
 								onChange={this.handleChange}
+								required
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select a Cost $
 								</option>
 								<option value="0">Free</option>
@@ -178,6 +194,17 @@ class ResourcesNew extends Component {
 								<option value="3">$$$</option>
 								<option value="4">$$$$</option>
 							</select>
+						</div>
+						<div className="form-group">
+							<label>Description</label>
+							<textarea
+								name="description"
+								value={this.state.description}
+								onChange={this.handleChange}
+								rows="4"
+								cols="50"
+								required
+							></textarea>
 						</div>
 						<div className="form-group">
 							<label>Add Your Own Tags:</label>
@@ -193,7 +220,7 @@ class ResourcesNew extends Component {
 						<div className="form-group">
 							<label>Existing Tags To Choose From:</label>
 							<select name="tag_list" onChange={this.handleSelect}>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select Multiple 1 or More Tags
 								</option>
 								{this.state.tags.map((tag) => {

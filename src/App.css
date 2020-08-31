@@ -37,7 +37,8 @@ footer {
 h1,
 h2,
 h3,
-h4 {
+h4,
+ul {
 	color: #00e000;
 	font-family: 'Courier';
 }
@@ -51,10 +52,6 @@ a {
 .card {
 	background-color: #00e000;
 }
-
-/* .form-group {
-	padding: 40px;
-} */
 
 .card-title {
 	margin-bottom: 5%;
@@ -72,8 +69,16 @@ button {
 	background-color: black;
 }
 
+.logout-btn {
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	color: black;
+}
+
 input,
-select {
+select,
+textarea {
 	color: #00e000;
 	font-family: 'Courier';
 	background-color: black;

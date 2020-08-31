@@ -7,30 +7,24 @@ class Resources extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loading: true,
 			resources: [],
-			// tags: [],
 			query: '',
 		};
 	}
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		axios
 			.get('http://localhost:3001/api/resources', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response);
-				this.setState({ resources: response.data });
+				this.setState({
+					resources: response.data,
+					loading: false,
+				});
 			})
 			.catch((error) => console.log(error));
-
-		// axios.get('http://localhost:3001/api/tags/')
-		//   .then(response => {
-		//     this.setState({ tags: response.data });
-		//     // console.log(this.state.tags);
-		//   })
-		//   .catch(function (error) {
-		//     console.log(error);
-		//   })
 	}
 
 	handleChange = (event) => {
@@ -40,15 +34,10 @@ class Resources extends Component {
 		});
 	};
 
-	// filterQuery() {
-	//   const tagQuery = this.query.includes(this.tags);
-
-	//   return lowerCaseStateName.includes(lowerCaseQuery)
-	//     || lowerCaseStateAbbreviation.includes(lowerCaseQuery)
-
-	// }
-
 	render() {
+		if (this.state.loading) {
+			return <h1>Loading....</h1>;
+		}
 		const filteredResources = this.state.resources.filter((resource) => {
 			return this.state.query
 				? resource.tags.some((tag) =>
@@ -73,7 +62,9 @@ class Resources extends Component {
 								</NavLink>
 							</div>
 							<div className="card-body" style={{ backgroundColor: '#009B00' }}>
-								{resource.author ? <h4>By: {resource.author}</h4> : null}
+								{resource.author ? (
+									<h4 style={{ color: 'black' }}>By: {resource.author}</h4>
+								) : null}
 								<a href={resource.url}>{resource.url}</a>
 								<br />
 								<div>

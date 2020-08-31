@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class ReviewsNew extends Component {
@@ -17,9 +18,13 @@ class ReviewsNew extends Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	componentDidMount() {
-		console.log(this.state);
-	}
+	clearForm = () => {
+		this.setState({
+			title: '',
+			body: '',
+			rating: '',
+		});
+	};
 
 	handleChange(event) {
 		this.setState({
@@ -28,24 +33,16 @@ class ReviewsNew extends Component {
 	}
 
 	handleSubmit(event) {
-		const { title, body, rating, user_id, resource_id } = this.state;
+		const newReview = this.state;
 
 		axios
-			.post(
-				'http://localhost:3001/api/reviews',
-				{
-					title: title,
-					body: body,
-					rating: rating,
-					user_id: user_id,
-					resource_id: resource_id,
-				},
-				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
-			)
-
+			.post('http://localhost:3001/api/reviews', newReview, {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
 			.then((response) => {
 				if (response.data) {
-					this.props.history.push('/reviews');
+					this.props.updateReviews(response.data);
+					this.clearForm();
 				}
 			})
 			.catch((error) => {
@@ -57,7 +54,6 @@ class ReviewsNew extends Component {
 	render() {
 		return (
 			<div className="card">
-				{/* <div className="card-title">Write Your Review</div> */}
 				<div className="card-body">
 					<form onSubmit={this.handleSubmit}>
 						<div className="form-group">
@@ -72,13 +68,14 @@ class ReviewsNew extends Component {
 						</div>
 						<div className="form-group">
 							<label>Tell Us What You Think</label>
-							<input
-								type="text"
+							<textarea
 								name="body"
 								value={this.state.body}
 								onChange={this.handleChange}
+								rows="4"
+								cols="50"
 								required
-							/>
+							></textarea>
 						</div>
 						<div className="form-group">
 							<label>How Would You Rate This Resource?</label>
@@ -86,8 +83,9 @@ class ReviewsNew extends Component {
 								name="rating"
 								value={this.state.rating}
 								onChange={this.handleChange}
+								required
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Between 1 and 5 Stars
 								</option>
 								<option value="1">1</option>
@@ -109,4 +107,4 @@ class ReviewsNew extends Component {
 	}
 }
 
-export default ReviewsNew;
+export default withRouter(ReviewsNew);

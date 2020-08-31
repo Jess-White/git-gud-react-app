@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import ReviewsNew from './ReviewsNew';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Resource extends Component {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.state = {
 			loading: true,
 			user_id: '',
 			id: '',
 			url: '',
 			name: '',
+			author: '',
+			description: '',
 			resource_type: '',
 			format: '',
 			difficulty: '',
@@ -25,20 +26,24 @@ class Resource extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.showEditAbility = this.showEditAbility.bind(this);
+		this.createStars = this.createStars.bind(this);
 	}
+
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		axios
 			.get(
 				`http://localhost:3001/api/resources/${this.props.match.params.id}`,
 				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
 			)
 			.then((response) => {
-				console.log(response.data);
 				this.setState({
 					user_id: response.data.user_id,
 					id: response.data.id,
 					url: response.data.url,
 					name: response.data.name,
+					author: response.data.author,
+					description: response.data.description,
 					resource_type: response.data.resource_type,
 					format: response.data.format,
 					difficulty: response.data.difficulty,
@@ -56,6 +61,14 @@ class Resource extends Component {
 			});
 	}
 
+	updateReviews = (newReview) => {
+		const reviews = this.state.reviews;
+		reviews.push(newReview);
+		this.setState({
+			reviews: reviews,
+		});
+	};
+
 	toggleHidden() {
 		this.setState({
 			isHidden: !this.state.isHidden,
@@ -63,7 +76,7 @@ class Resource extends Component {
 	}
 
 	showEditAbility() {
-		if (this.state.user_id == localStorage.user_id) {
+		if (this.state.user_id === parseInt(localStorage.user_id)) {
 			this.setState({
 				canEdit: !this.state.canEdit,
 			});
@@ -84,7 +97,6 @@ class Resource extends Component {
 				this.setState({
 					favorite: true,
 				});
-				console.log(response);
 			})
 			.catch((error) => {
 				console.log('favorite create error', error);
@@ -120,13 +132,24 @@ class Resource extends Component {
 	}
 
 	handleSubmit(event) {
-		const { url, name, resource_type, format, difficulty, cost } = this.state;
+		const {
+			name,
+			url,
+			author,
+			description,
+			resource_type,
+			format,
+			difficulty,
+			cost,
+		} = this.state;
 		axios
 			.patch(
 				'http://localhost:3001/api/resources/' + this.state.id,
 				{
-					url: url,
 					name: name,
+					url: url,
+					author: author,
+					description: description,
 					resource_type: resource_type,
 					format: format,
 					difficulty: difficulty,
@@ -143,19 +166,42 @@ class Resource extends Component {
 		event.preventDefault();
 	}
 
+	createStars(num) {
+		let star = '\u2605';
+		let blankStar = '\u2606';
+		return star.repeat(parseInt(num)) + blankStar.repeat(5 - parseInt(num));
+	}
+
 	render() {
 		if (this.state.loading) {
 			return <h1>Loading....</h1>;
 		}
 		return (
 			<div className="container">
-				<a href={this.state.url} target="_blank" className="inapp-link">
+				<a
+					href={this.state.url}
+					target="_blank"
+					className="inapp-link"
+					rel="noopener noreferrer"
+					style={{ fontSize: 30 }}
+				>
 					{this.state.name}
 				</a>
-				<h3>Type: {this.state.resource_type}</h3>
-				<h3>Format: {this.state.format}</h3>
-				<h3>Difficulty: {this.state.difficulty}</h3>
-				<h3>Cost: {this.state.cost}</h3>
+				<br />
+				<br />
+				<ul style={{ fontSize: 25 }}>
+					{this.state.author ? <li>Author: {this.state.author}</li> : null}
+					<li>Type: {this.state.resource_type}</li>
+					<li>Format: {this.state.format}</li>
+					<li>Difficulty: {this.state.difficulty}</li>
+					<li>
+						Cost:{' '}
+						{this.state.cost === 0
+							? 'Free'
+							: '$'.repeat(parseInt(this.state.cost))}
+					</li>
+					<li>Description: {this.state.description}</li>
+				</ul>
 				<br />
 
 				{this.state.favorite === false ? (
@@ -170,11 +216,14 @@ class Resource extends Component {
 				<br />
 				<br />
 
-				<h1>Add Your Review:</h1>
+				{/* Create review starts here */}
+
+				<h1>Add Your Own Review</h1>
 				<div>
 					<ReviewsNew
 						resource_id={this.state.id}
 						history={this.props.history}
+						updateReviews={this.updateReviews}
 					/>
 				</div>
 				<br />
@@ -189,21 +238,29 @@ class Resource extends Component {
 									className="card-header"
 									style={{ backgroundColor: 'black' }}
 								>
-									<NavLink className="inapp-link" to={`/reviews/${review.id}`}>
+									<Link className="inapp-link" to={`/reviews/${review.id}`}>
 										{review.title}
-									</NavLink>
-								</div>
-								<div
-									className="card-body"
-									style={{ backgroundColor: '#00e000' }}
-								>
+									</Link>
+									{/* <h3>{review.rating}</h3> */}
+									{/* <h3>&#9733;&#9734;</h3> */}
+									<h3>{this.createStars(review.rating)}</h3>
 									{review.body.length > 100 ? (
 										<h3>{review.body.slice(0, 100)} ...</h3>
 									) : (
 										<h3>{review.body}</h3>
 									)}
 									<h3>By: {review.user.user_name}</h3>
-									<br />
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										style={{ display: 'none' }}
+									>
+										<symbol id="star" viewBox="214.7 0 182.6 792">
+											{/* link or path to star svg */}
+										</symbol>
+										<svg className="icon">
+											<use xlinkHref="#star" />
+										</svg>
+									</svg>
 								</div>
 							</div>
 						);
@@ -211,102 +268,137 @@ class Resource extends Component {
 				</div>
 				<br />
 
-				{/* beginning of resource update */}
+				{/* beginning of resource update if user created resource */}
 
 				{this.state.canEdit ? (
-					<div>
+					<div className="container">
 						<button onClick={this.toggleHidden.bind(this)}>
 							Update Resource
 						</button>
 						<br />
 						<br />
 						{this.state.isHidden ? (
-							<div>
-								<h1>Resource Update</h1>
-								<form onSubmit={this.handleSubmit}>
-									<label>URL</label>
-									<input
-										type="text"
-										value={this.state.url}
-										name="url"
-										placeholder={this.state.url}
-										onChange={this.handleChange}
-									/>
+							<div className="card">
+								<div className="card-body">
+									<form onSubmit={this.handleSubmit}>
+										<div className="form-group">
+											<label>Resource Name</label>
+											<input
+												type="text"
+												value={this.state.name}
+												name="name"
+												placeholder={this.state.name}
+												onChange={this.handleChange}
+											/>
+										</div>
+										<div className="form-group">
+											<label>URL</label>
+											<input
+												type="text"
+												value={this.state.url}
+												name="url"
+												placeholder={this.state.url}
+												onChange={this.handleChange}
+											/>
+										</div>
+										<div className="form-group">
+											<label>Author</label>
+											<input
+												type="text"
+												value={this.state.author}
+												name="author"
+												placeholder={this.state.author}
+												onChange={this.handleChange}
+											/>
+										</div>
+										<div className="form-group">
+											<label>Resource Type</label>
+											<select
+												name="resource_type"
+												value={this.state.resource_type}
+												onChange={this.handleChange}
+											>
+												<option value="" disabled>
+													Select a Resource Type
+												</option>
+												<option value="channel">Channel</option>
+												<option value="cheat_sheet">Cheat Sheet</option>
+												<option value="deep_dive">Deep Dive</option>
+												<option value="tutorial">Tutorial</option>
+											</select>
+										</div>
+										<div className="form-group">
+											<label>Format:</label>
+											<select
+												name="format"
+												value={this.state.format}
+												onChange={this.handleChange}
+											>
+												<option value="" disabled>
+													Select a Format
+												</option>
+												<option value="text">Text</option>
+												<option value="video">Video</option>
+											</select>
+										</div>
+										<div className="form-group">
+											<label>Difficulty:</label>
+											<select
+												name="difficulty"
+												value={this.state.difficulty}
+												onChange={this.handleChange}
+											>
+												<option value="" disabled>
+													Select a Level of Difficulty
+												</option>
+												<option value="basic">Basic</option>
+												<option value="beginner">Beginner</option>
+												<option value="intermediate">Intermediate</option>
+												<option value="advanced">Advanced</option>
+											</select>
+										</div>
+										<div className="form-group">
+											<label>Cost:</label>
+											<select
+												name="cost"
+												value={this.state.cost}
+												onChange={this.handleChange}
+											>
+												<option value="" disabled>
+													Select a Cost $
+												</option>
+												<option value="0">Free</option>
+												<option value="1">$</option>
+												<option value="2">$$</option>
+												<option value="3">$$$</option>
+												<option value="4">$$$$</option>
+											</select>
+										</div>
+										<div className="form-group">
+											<label>Description</label>
+											<textarea
+												name="description"
+												value={this.state.description}
+												onChange={this.handleChange}
+												rows="4"
+												cols="50"
+												required
+											></textarea>
+										</div>
+										<div className="text-center">
+											<button type="submit" className="btn-lg">
+												Submit Update
+											</button>
+											<button
+												onClick={this.toggleHidden.bind(this)}
+												className="btn-lg"
+											>
+												Close
+											</button>
+										</div>
+									</form>
 									<br />
-									<label>Name</label>
-									<input
-										type="text"
-										value={this.state.name}
-										name="name"
-										placeholder={this.state.name}
-										onChange={this.handleChange}
-									/>
-									<br />
-
-									<label>
-										Resource Type:
-										<select
-											name="resource_type"
-											value={this.state.resource_type}
-											onChange={this.handleChange}
-										>
-											<option value="cheat_sheet">Cheat Sheet</option>
-											<option value="tutorial">Tutorial</option>
-											<option value="deep_dive">Deep Dive</option>
-											<option value="channel">Channel</option>
-										</select>
-									</label>
-									<br />
-
-									<label>
-										Format:
-										<select
-											name="format"
-											value={this.state.format}
-											onChange={this.handleChange}
-										>
-											<option value="text">Text</option>
-											<option value="video">Video</option>
-										</select>
-									</label>
-									<br />
-
-									<label>
-										Difficulty:
-										<select
-											name="difficulty"
-											value={this.state.difficulty}
-											onChange={this.handleChange}
-										>
-											<option value="basic">Basic</option>
-											<option value="beginner">Beginner</option>
-											<option value="intermediate">Intermediate</option>
-											<option value="advanced">Advanced</option>
-										</select>
-									</label>
-									<br />
-
-									<label>
-										Cost:
-										<select
-											name="cost"
-											value={this.state.cost}
-											onChange={this.handleChange}
-										>
-											<option value="0">Free</option>
-											<option value="1">$</option>
-											<option value="2">$$</option>
-											<option value="3">$$$</option>
-											<option value="4">$$$$</option>
-										</select>
-									</label>
-									<br />
-									<br />
-									<div>
-										<button type="submit">Submit</button>
-									</div>
-								</form>
-								<br />
+								</div>
 							</div>
 						) : null}
 					</div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { Form } from 'react-bootstrap';
 
 class Signup extends Component {
 	constructor(props) {
@@ -13,12 +12,15 @@ class Signup extends Component {
 			user_name: '',
 			password: '',
 			password_confirmation: '',
-			signUpErrors: '',
 			errors: [],
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+	}
+
+	componentDidMount() {
+		window.scrollTo(0, 0);
 	}
 
 	handleChange(event) {
@@ -100,7 +102,6 @@ class Signup extends Component {
 								required
 							/>
 						</div>
-						<div>{/* {this.state.errors} */}</div>
 						<div className="form-group">
 							<input
 								type="text"
@@ -130,6 +131,15 @@ class Signup extends Component {
 								onChange={this.handleChange}
 								required
 							/>
+						</div>
+						<div>
+							{this.state.errors.map((error, index) => {
+								return (
+									<span key={index} style={{ color: 'red' }}>
+										{error},{' '}
+									</span>
+								);
+							})}
 						</div>
 						<div className="text-center">
 							<button className="btn-lg" type="submit">

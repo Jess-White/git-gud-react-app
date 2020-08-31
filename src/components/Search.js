@@ -9,8 +9,8 @@ export default function Search(props) {
 					value={props.query}
 					onChange={props.handleChange}
 					type="text"
-					className="search"
-					placeholder="Type a Tag or Keyword Here"
+					className="search other"
+					placeholder="Type in a tag to search"
 					name="query"
 				/>
 			</form>

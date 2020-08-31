@@ -16,13 +16,10 @@ class Favorites extends Component {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
-				console.log(response);
 				this.setState({ favorites: response.data });
 			})
 			.catch((error) => console.log(error));
 	}
-
-	// <Resource favorites={this.state.favorites} />
 
 	render() {
 		return (
@@ -31,10 +28,24 @@ class Favorites extends Component {
 				<h1>Your Favorites:</h1>
 				{this.state.favorites.map((favorite) => {
 					return (
-						<div className="tile" key={favorite.id}>
-							<Link to={'/resources/' + favorite.resource.id}>
-								<h4>{favorite.resource.name}</h4>
-							</Link>
+						<div className="card bg-light mb-3" key={favorite.id}>
+							<div className="card-header" style={{ backgroundColor: 'black' }}>
+								<Link
+									className="inapp-link"
+									to={'/resources/' + favorite.resource.id}
+								>
+									{favorite.resource.name}
+								</Link>
+							</div>
+							<div className="card-body" style={{ backgroundColor: '#009B00' }}>
+								{favorite.resource.author ? (
+									<h4 style={{ color: 'black' }}>
+										By: {favorite.resource.author}
+									</h4>
+								) : null}
+								<a href={favorite.resource.url}>{favorite.resource.url}</a>
+								<br />
+							</div>
 						</div>
 					);
 				})}
