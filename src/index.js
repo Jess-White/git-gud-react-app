@@ -5,11 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './App.css';
-// import axios from 'axios';
 // import * as serviceWorker from './serviceWorker';
-
-// axios.defaults.baseURL =
-// 	process.env.NODE_ENV === 'develpment' ? 'http://localhost:3001' : '/';
 
 ReactDOM.render(
 	<React.StrictMode>
