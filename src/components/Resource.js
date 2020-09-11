@@ -32,10 +32,9 @@ class Resource extends Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		axios
-			.get(
-				`http://localhost:3001/api/resources/${this.props.match.params.id}`,
-				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
-			)
+			.get(`/api/resources/${this.props.match.params.id}`, {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
 			.then((response) => {
 				this.setState({
 					user_id: response.data.user_id,
@@ -86,7 +85,7 @@ class Resource extends Component {
 	createFavorite() {
 		axios
 			.post(
-				'http://localhost:3001/api/favorites',
+				'/api/favorites',
 				{
 					user_id: localStorage.user_id,
 					resource_id: this.state.id,
@@ -106,7 +105,7 @@ class Resource extends Component {
 	handleFavoriteDelete() {
 		axios
 			.delete(
-				'http://localhost:3001/api/favorites/' +
+				'/api/favorites/' +
 					'user_id=' +
 					localStorage.user_id +
 					'&resource_id=' +
@@ -144,7 +143,7 @@ class Resource extends Component {
 		} = this.state;
 		axios
 			.patch(
-				'http://localhost:3001/api/resources/' + this.state.id,
+				'/api/resources/' + this.state.id,
 				{
 					name: name,
 					url: url,

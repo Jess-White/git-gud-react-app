@@ -30,7 +30,7 @@ class Login extends Component {
 
 		axios
 			.post(
-				'http://localhost:3001/api/sessions',
+				'/api/sessions',
 				{
 					email: email,
 					password: password,
@@ -46,10 +46,13 @@ class Login extends Component {
 				}
 			})
 			.catch((error) => {
-				this.setState({
-					errorMessage: error.response.data.message,
-				});
+				// this.setState({
+				// 	errorMessage: error.response.data.message,
+				// });
 				console.log(this.state.errorMessage);
+				console.log(error.response.data);
+				console.log(error.response.status);
+				console.log(error.response);
 			});
 		event.preventDefault();
 	}

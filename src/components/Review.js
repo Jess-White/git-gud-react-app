@@ -22,7 +22,7 @@ class Review extends Component {
 
 	componentDidMount() {
 		axios
-			.get(`http://localhost:3001/api/reviews/${this.props.match.params.id}`, {
+			.get(`/api/reviews/${this.props.match.params.id}`, {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
@@ -70,7 +70,7 @@ class Review extends Component {
 		const { title, body, rating } = this.state;
 		axios
 			.patch(
-				'http://localhost:3001/api/reviews/' + this.state.id,
+				'/api/reviews/' + this.state.id,
 				{
 					title: title,
 					body: body,
