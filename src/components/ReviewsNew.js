@@ -36,7 +36,7 @@ class ReviewsNew extends Component {
 		const newReview = this.state;
 
 		axios
-			.post('http://localhost:3001/api/reviews', newReview, {
+			.post('/api/reviews', newReview, {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {

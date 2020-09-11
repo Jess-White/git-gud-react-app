@@ -41,7 +41,7 @@ class Signup extends Component {
 
 		axios
 			.post(
-				'http://localhost:3001/api/users',
+				'/api/users',
 				{
 					first_name: first_name,
 					last_name: last_name,

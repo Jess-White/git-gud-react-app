@@ -27,7 +27,7 @@ class ResourcesNew extends Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		axios
-			.get('http://localhost:3001/api/tags', {
+			.get('/api/tags', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
@@ -67,7 +67,7 @@ class ResourcesNew extends Component {
 
 		axios
 			.post(
-				'http://localhost:3001/api/resources',
+				'/api/resources',
 				{
 					name: name,
 					url: url,

@@ -12,7 +12,7 @@ class Favorites extends Component {
 
 	componentDidMount() {
 		axios
-			.get('http://localhost:3001/api/favorites', {
+			.get('/api/favorites', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {

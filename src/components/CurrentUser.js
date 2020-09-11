@@ -18,7 +18,7 @@ class CurrentUser extends Component {
 
 	componentDidMount() {
 		axios
-			.get('http://localhost:3001/api/users/' + localStorage.user_id, {
+			.get('/api/users/' + localStorage.user_id, {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
@@ -51,7 +51,7 @@ class CurrentUser extends Component {
 		const { first_name, last_name, user_name, email } = this.state;
 		axios
 			.patch(
-				'http://localhost:3001/api/users/' + localStorage.user_id,
+				'/api/users/' + localStorage.user_id,
 				{
 					first_name: first_name,
 					last_name: last_name,
