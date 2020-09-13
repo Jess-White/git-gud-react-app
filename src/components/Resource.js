@@ -32,10 +32,9 @@ class Resource extends Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		axios
-			.get(
-				`http://localhost:3001/api/resources/${this.props.match.params.id}`,
-				{ headers: { Authorization: `Bearer ${localStorage.token}` } }
-			)
+			.get(`/api/resources/${this.props.match.params.id}`, {
+				headers: { Authorization: `Bearer ${localStorage.token}` },
+			})
 			.then((response) => {
 				this.setState({
 					user_id: response.data.user_id,
