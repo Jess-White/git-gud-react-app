@@ -15,7 +15,7 @@ class Resources extends Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 		axios
-			.get('http://localhost:3001/api/resources', {
+			.get('/api/resources', {
 				headers: { Authorization: `Bearer ${localStorage.token}` },
 			})
 			.then((response) => {
