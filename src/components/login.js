@@ -8,7 +8,7 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			errorMessage: '',
+			errors: [],
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,13 +46,9 @@ class Login extends Component {
 				}
 			})
 			.catch((error) => {
-				// this.setState({
-				// 	errorMessage: error.response.data.message,
-				// });
-				console.log(this.state.errorMessage);
-				console.log(error.response.data);
-				console.log(error.response.status);
-				console.log(error.response);
+				this.setState({
+					errors: error.response.data.message,
+				});
 			});
 		event.preventDefault();
 	}
@@ -83,7 +79,9 @@ class Login extends Component {
 							/>
 						</div>
 						<div>
-							<span style={{ color: 'red' }}>{this.state.errorMessage}</span>
+							{this.state.errors ? (
+								<p style={{ color: 'red' }}>{this.state.errors}</p>
+							) : null}
 						</div>
 						<div className="text-center">
 							<button type="submit" className="btn-lg">

@@ -62,7 +62,6 @@ class Signup extends Component {
 				this.setState({
 					errors: error.response.data.errors,
 				});
-				console.log(this.state.errors);
 			});
 		event.preventDefault();
 	}
@@ -133,13 +132,24 @@ class Signup extends Component {
 							/>
 						</div>
 						<div>
-							{this.state.errors.map((error, index) => {
-								return (
-									<span key={index} style={{ color: 'red' }}>
-										{error},{' '}
-									</span>
-								);
-							})}
+							{this.state.errors ? (
+								this.state.errors.map((error, index) => {
+									if (index === this.state.errors.length - 1) {
+										return (
+											<span key={index} style={{ color: 'red' }}>
+												{error}
+											</span>
+										);
+									} else {
+										return (
+											<span key={index} style={{ color: 'red' }}>
+												{error},{' '}
+											</span>
+										);
+									}
+								})
+							) : null}
+							
 						</div>
 						<div className="text-center">
 							<button className="btn-lg" type="submit">
