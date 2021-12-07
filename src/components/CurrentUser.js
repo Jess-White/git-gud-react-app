@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// Adding comment
 class CurrentUser extends Component {
 	constructor(props) {
 		super(props);
